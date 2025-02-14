@@ -1,16 +1,14 @@
 // import Logo from "path/to/your/logo.png"; // <-- Uncomment and adjust path
 
 import { Link } from "react-router-dom";
-import Logo from "../../../assets/Images/FooterLogo.png"
+import Logo from "../../../assets/Images/FooterLogo.png";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { FaTwitter } from "react-icons/fa";
 
-
 const Footer = () => {
   return (
     <>
-
       <div className="bg-primary py-5 mt-4 grid grid-cols-1 gap-4">
         <div className="grid grid-cols-1 md:grid-cols-2">
           <div className="grid grid-cols-1 md:grid-cols-2">
@@ -44,24 +42,24 @@ const Footer = () => {
             </div>
           </div>
           <div className="grid grid-cols-1">
-<div>
-    <h1>Subscribe to our newsletter</h1>
-</div>
-<div className="flex w-full max-w-sm items-center space-x-2">
-      <Input type="email" placeholder="Email" />
-      <Button type="submit">Subscribe</Button>
-    </div>
-<div>
-    <div>
-    <FaTwitter />
-    </div>
-    <div>
-    <FaTwitter />
-    </div>
-    <div>
-    <FaTwitter />
-    </div>
-</div>
+            <div>
+              <h1>Subscribe to our newsletter</h1>
+            </div>
+            <div className="flex w-full max-w-sm items-center space-x-2">
+              <Input type="email" placeholder="Email" />
+              <Button type="submit">Subscribe</Button>
+            </div>
+            <div>
+              <div>
+                <FaTwitter />
+              </div>
+              <div>
+                <FaTwitter />
+              </div>
+              <div>
+                <FaTwitter />
+              </div>
+            </div>
           </div>
         </div>
 
