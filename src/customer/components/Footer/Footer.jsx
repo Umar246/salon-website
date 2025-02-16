@@ -4,70 +4,88 @@ import { Link } from "react-router-dom";
 import Logo from "../../../assets/Images/FooterLogo.png";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { FaTwitter } from "react-icons/fa";
+import { FaFacebookF, FaTwitter } from "react-icons/fa";
+import { RiInstagramFill } from "react-icons/ri";
 
 const Footer = () => {
   return (
     <>
-      <div className="bg-primary py-5 mt-4 grid grid-cols-1 gap-4">
-        <div className="grid grid-cols-1 md:grid-cols-2">
-          <div className="grid grid-cols-1 md:grid-cols-2">
-            <div>
-              <img src={Logo} alt="Footer_Logo" className="h-[60%] " />
-            </div>
-            <div className="flex flex-col gap-2 text-neutral font-light text-sm">
-              <div>
-                <p>
-                  Businesses like yours need more. To help you keep your
-                  momentum Salon delivers two unique experiences - a tablet
-                  solution for the front desk and a mobile solution for managing
-                  appointments on the go.
-                </p>
+        <div className="bg-primary py-5 mt-4 grid grid-cols-1 gap-4">
+    
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-[3rem] md:gap-[6rem] py-8 justify-between w-[95%] mx-auto">
+            {/* Logo & Text Side */}
+            <div className="grid grid-cols-1 md:grid-cols-2 px-3 items-start">
+              <div className="flex items-center justify-center">
+                <img src={Logo} alt="Footer_Logo" className="h-[10rem]" />
               </div>
-              <div className="flex">
-                <div className="flex flex-col gap-3">
-                  {/* 1 */}
-                  <Link to="#">About Us</Link>
-                  <Link to="#">Pricing</Link>
-                  <Link to="#"> Blog</Link>
-                  <Link to="#">Contact Us</Link>
+              <div className="flex flex-col gap-8 text-neutral  text-sm">
+                <div>
+                  <p className="text-justify">
+                    Businesses like yours need more. To help you keep your
+                    momentum Salon delivers two unique experiences - a tablet
+                    solution for the front desk and a mobile solution for
+                    managing appointments on the go.
+                  </p>
                 </div>
-                <div className="flex flex-col gap-3">
-                  {/* 2 */}
-                  <Link to="#">FAQ</Link>
-                  <Link to="#">Privacy Policy</Link>
-                  <Link to="#">Terms of Service</Link>
+                <div className="flex gap-8">
+                  <div className="flex flex-col gap-3 text-sm">
+                    {/* 1 */}
+                    <Link to="#">About Us</Link>
+                    <Link to="#">Pricing</Link>
+                    <Link to="#"> Blog</Link>
+                    <Link to="#">Contact Us</Link>
+                  </div>
+                  <div className="flex flex-col gap-3 text-sm">
+                    {/* 2 */}
+                    <Link to="#">FAQ</Link>
+                    <Link to="#">Privacy Policy</Link>
+                    <Link to="#">Terms of Service</Link>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-          <div className="grid grid-cols-1">
-            <div>
-              <h1>Subscribe to our newsletter</h1>
-            </div>
-            <div className="flex w-full max-w-sm items-center space-x-2">
-              <Input type="email" placeholder="Email" />
-              <Button type="submit">Subscribe</Button>
-            </div>
-            <div>
-              <div>
-                <FaTwitter />
-              </div>
-              <div>
-                <FaTwitter />
-              </div>
-              <div>
-                <FaTwitter />
-              </div>
-            </div>
-          </div>
-        </div>
 
-        <div className=" border-b border-gray-400"></div>
-        <div className="text-neutral font-light text-sm text-center">
-          <p>© 2022 Salon Inc. All rights reserved</p>
+            {/* Input Side */}
+            <div className="flex flex-col items-center lg:items-end gap-8  px-3 md:px-[3.2rem]">
+              <div className=" w-full">
+                <h1 className="font-bold  text-2xl text-center lg:text-start text-neutral">
+                  Subscribe to our newsletter
+                </h1>
+              </div>
+              <div className="flex w-full max-w-md items-center text-end space-x-2 md:space-x-4">
+                <Input
+                  type="email"
+                  placeholder="Email"
+                  className="bg-neutral py-6 rounded-lg w-full"
+                />
+                <Button
+                  type="submit"
+                  className="py-6 md:px-6 bg-secondary rounded-lg hover:bg-amber-600"
+                >
+                  Subscribe
+                </Button>
+              </div>
+              <div className="flex gap-6 md:gap-8 lg:gap-3 justify-center  tems-center  me-2 ">
+                <div className="bg-neutral p-2 md:p-4 lg:p-2 flex rounded-full hover:bg-gray-200">
+                  <RiInstagramFill size={18} />
+                </div>
+                <div className="bg-neutral p-2 md:p-4 lg:p-2 flex rounded-full hover:bg-gray-200">
+                  <FaFacebookF size={18} />
+                </div>
+                <div className="bg-neutral p-2 md:p-4 lg:p-2 flex rounded-full hover:bg-gray-200">
+                  <FaTwitter size={18} />
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className=" border-b border-gray-400"></div>
+
+          <div className="text-neutral font-light text-sm text-center w-[95%] mx-auto">
+            <p>© 2022 Salon Inc. All rights reserved</p>
+          </div>
+   
         </div>
-      </div>
     </>
   );
 };
