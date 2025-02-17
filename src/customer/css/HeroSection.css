@@ -1,0 +1,12 @@
+.backgroundImage {
+  background-image: url("../../assets/Images/HeroSectionBackground.png");
+  background-size: cover; /* ✅ Small screen pe adjust hoga */
+  background-position: center;
+  background-repeat: no-repeat;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+/* ✅ Adjusted height */
+  width: 100%;
+  /* padding: 20px; */
+}

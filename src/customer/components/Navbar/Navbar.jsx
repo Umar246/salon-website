@@ -73,10 +73,10 @@ const Navbar = () => {
               Sign up as customer
             </Link>
             {/* </div> */}
-            <button className="bg-transparent border font-light border-secondary text-secondary px-5 py-1 rounded-md hover:bg-secondary hover:text-neutral">
+            <button className="bg-neutral  font-light  text-secondary px-6 py-1.5 rounded-md hover:bg-gray-100">
               Login
             </button>
-            <button className="bg-secondary hover:bg-yellow-600 text-neutral font-light px-5 py-1 rounded-md">
+            <button className="bg-secondary hover:bg-yellow-600 text-neutral font-light px-5 py-1.5 rounded-md">
               Start Free trial
             </button>
           </div>
@@ -144,7 +144,7 @@ const Navbar = () => {
               </span>
               Sign up as a customer
             </Link>
-            <button className="bg-transparent border border-neutral text-neutral px-3 py-2 rounded-md hover:bg-secondary">
+            <button className="bg-neutral text-secondary px-3 py-2 rounded-md hover:bg-gray-100">
               Login
             </button>
             <button className="bg-secondary text-primary px-3 py-2 rounded-md">
