@@ -10,7 +10,7 @@ import { RiInstagramFill } from "react-icons/ri";
 const Footer = () => {
   return (
     <>
-        <div className="bg-primary py-5 mt-4 grid grid-cols-1 gap-4">
+        <div className="bg-primary py-5 mt-4 grid grid-cols-1 gap-4 font-mulish">
     
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-[3rem] md:gap-[6rem] py-8 justify-between w-[95%] mx-auto">
             {/* Logo & Text Side */}
@@ -48,7 +48,7 @@ const Footer = () => {
             {/* Input Side */}
             <div className="flex flex-col items-center lg:items-end gap-8  px-3 md:px-[3.2rem]">
               <div className=" w-full">
-                <h1 className="font-bold  text-2xl text-center lg:text-start text-neutral">
+                <h1 className="font-bold  text-2xl text-center lg:text-start text-neutral font-playfair">
                   Subscribe to our newsletter
                 </h1>
               </div>

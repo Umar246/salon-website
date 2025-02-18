@@ -8,7 +8,7 @@ const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
 
   return (
-    <nav className="bg-primary text-neutral">
+    <nav className="bg-primary text-neutral font-mulish">
       <div className="w-[95%] mx-auto px-4">
         {/* Desktop Navbar */}
         <div className="hidden lg:grid grid-cols-2 items-center py-4">
@@ -23,37 +23,37 @@ const Navbar = () => {
             <div className="flex space-x-10 ml-4">
               <a
                 href="#home"
-                className="hover:text-secondary font-light active:text-secondary"
+                className="hover:text-secondary text-sm font-light active:text-secondary"
               >
                 Home
               </a>
               <a
                 href="#about"
-                className="hover:text-secondary font-light active:text-secondary"
+                className="hover:text-secondary  text-sm  font-light active:text-secondary"
               >
                 About us
               </a>
               <a
                 href="#pricing"
-                className="hover:text-secondary font-light active:text-secondary"
+                className="hover:text-secondary  text-sm  font-light active:text-secondary"
               >
                 Pricing
               </a>
               <a
                 href="#blog"
-                className="hover:text-secondary font-light active:text-secondary"
+                className="hover:text-secondary  text-sm  font-light active:text-secondary"
               >
                 Blog
               </a>
               <a
                 href="#contact"
-                className="hover:text-secondary font-light active:text-secondary"
+                className="hover:text-secondary  text-sm  font-light active:text-secondary"
               >
                 Contact us
               </a>
               <a
                 href="#faq"
-                className="hover:text-secondary font-light  active:text-secondary"
+                className="hover:text-secondary  text-sm  font-light  active:text-secondary"
               >
                 FAQ
               </a>
