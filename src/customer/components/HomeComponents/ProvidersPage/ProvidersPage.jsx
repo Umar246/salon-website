@@ -1,6 +1,7 @@
 import image1 from "../../../../assets/Images/provider1.jpeg";
 import image2 from "../../../../assets/Images/provider2.jpeg";
 import image3 from "../../../../assets/Images/provider3.jpeg";
+import { motion } from "framer-motion";
 
 const providerData = [
   {
@@ -28,7 +29,13 @@ const providerData = [
 
 export default function ProvidersPage() {
   return (
-    <div className="w-[85%] mx-auto mt-5 md:mt-20">
+    <motion.div
+    initial={{ opacity: 0, y: 50 }}
+    whileInView={{ opacity: 1, y: 0 }}
+    viewport={{ once: true }}
+    transition={{ duration: 3 }}
+  >
+   <div className="w-[85%] mx-auto mt-5 md:mt-20">
       <div className="flex flex-col items-center">
         {/* <p className="text-xs text-center font-mulish">Salon LITE</p> */}
         <h1 className="font-bold text-2xl text-center lg:w-sm font-playfair">
@@ -70,5 +77,6 @@ export default function ProvidersPage() {
         })}
       </div>
     </div>
+    </motion.div>
   );
 }

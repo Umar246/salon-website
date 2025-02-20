@@ -6,12 +6,18 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { FaFacebookF, FaTwitter } from "react-icons/fa";
 import { RiInstagramFill } from "react-icons/ri";
+import { motion } from "framer-motion";
 
 const Footer = () => {
   return (
     <>
-        <div className="bg-primary py-5 mt-4 grid grid-cols-1 gap-4 font-mulish">
-    
+      <div className="bg-primary py-5 mt-4 grid grid-cols-1 gap-4 font-mulish">
+        <motion.div
+          initial={{ opacity: 0, y: 50 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 3 }}
+        >
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-[3rem] md:gap-[6rem] py-8 justify-between w-[95%] mx-auto">
             {/* Logo & Text Side */}
             <div className="grid grid-cols-1 md:grid-cols-2 px-3 items-start">
@@ -60,32 +66,39 @@ const Footer = () => {
                 />
                 <Button
                   type="submit"
-                  className="py-6 md:px-6 bg-secondary rounded-lg hover:bg-amber-600"
+                  className="animated-btn py-6 md:px-6 bg-secondary rounded-lg hover:bg-amber-600"
                 >
                   Subscribe
                 </Button>
               </div>
               <div className="flex gap-6 md:gap-8 lg:gap-3 justify-center  tems-center  me-2 ">
-                <div className="bg-neutral p-2 md:p-4 lg:p-2 flex rounded-full hover:bg-gray-200">
+                <div className="bg-neutral animated-btn p-2 md:p-4 lg:p-2 flex rounded-full hover:bg-gray-200">
                   <RiInstagramFill size={18} />
                 </div>
-                <div className="bg-neutral p-2 md:p-4 lg:p-2 flex rounded-full hover:bg-gray-200">
+                <div className="bg-neutral animated-btn p-2 md:p-4 lg:p-2 flex rounded-full hover:bg-gray-200">
                   <FaFacebookF size={18} />
                 </div>
-                <div className="bg-neutral p-2 md:p-4 lg:p-2 flex rounded-full hover:bg-gray-200">
+                <div className="bg-neutral animated-btn p-2 md:p-4 lg:p-2 flex rounded-full hover:bg-gray-200">
                   <FaTwitter size={18} />
                 </div>
               </div>
             </div>
           </div>
+        </motion.div>
 
-          <div className=" border-b border-gray-400"></div>
+        <div className=" border-b border-gray-400"></div>
 
+        <motion.div
+          initial={{ opacity: 0, y: 50 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 3 }}
+        >
           <div className="text-neutral font-light text-sm text-center w-[95%] mx-auto">
             <p>© 2022 Salon Inc. All rights reserved</p>
           </div>
-   
-        </div>
+        </motion.div>
+      </div>
     </>
   );
 };
