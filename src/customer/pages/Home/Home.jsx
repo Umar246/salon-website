@@ -8,14 +8,14 @@ import ProvidersPage from "@/customer/components/HomeComponents/ProvidersPage/Pr
 function Home() {
   return (
     <>
-     
+      <main>
         <HeroSection />
         <HeroCards />
         <AboutSalon />
         <OnlineBooking />
         <ProvidersPage />
         <MarketingSection />
-    
+      </main>
     </>
   );
 }

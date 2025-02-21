@@ -1,0 +1,14 @@
+.PricingHeroBackground {
+  background-image: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)),
+    url("../../assets/Images/pricingbackground.png");
+  background-size: cover; /* ✅ Small screen pe adjust hoga */
+  background-position: center;
+  background-repeat: no-repeat;
+/* ✅ Adjusted height */
+  width: 100%;
+  /* min-height: 60vh; */
+  /* filter: brightness(80%); */
+  /* opacity: 0.8; */
+
+  /* padding: 20px; */
+}

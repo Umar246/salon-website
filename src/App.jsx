@@ -5,10 +5,10 @@ import CustomerRoutes from "./Routes/CustomerRoutes";
 function App() {
   return (
     <>
-      <Routes>
-        <Route path="/*" element={<CustomerRoutes />} />
-      </Routes>
-    </>
+        <Routes>
+          <Route path="/*" element={<CustomerRoutes />} />
+        </Routes>
+        </>
   );
 }
 

@@ -88,16 +88,9 @@ const Footer = () => {
 
         <div className=" border-b border-gray-400"></div>
 
-        <motion.div
-          initial={{ opacity: 0, y: 50 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 3 }}
-        >
-          <div className="text-neutral font-light text-sm text-center w-[95%] mx-auto">
-            <p>© 2022 Salon Inc. All rights reserved</p>
-          </div>
-        </motion.div>
+        <div className="text-neutral font-light text-sm text-center w-[95%] mx-auto">
+          <p>© 2022 Salon Inc. All rights reserved</p>
+        </div>
       </div>
     </>
   );
