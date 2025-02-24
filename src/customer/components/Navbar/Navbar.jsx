@@ -22,19 +22,19 @@ const Navbar = () => {
             {/* Minimal space between logo and links */}
             <div className="flex space-x-10 ml-4">
               <Link
-                to="#home"
+                to="/"
                 className="animated-btn hover:text-secondary text-sm font-light active:text-secondary"
               >
                 Home
               </Link>
               <Link
-                to="#about"
+                to="/about"
                 className="hover:text-secondary animated-btn  text-sm  font-light active:text-secondary"
               >
                 About us
               </Link>
               <Link
-                to="#pricing"
+                to="/pricing"
                 className="hover:text-secondary animated-btn  text-sm  font-light active:text-secondary"
               >
                 Pricing
@@ -102,19 +102,19 @@ const Navbar = () => {
         <div className="lg:hidden bg-primary text-neutral px-4 py-3">
           <div className="flex flex-col space-y-2">
             <Link
-              to="#home"
+              to="/"
               className="hover:text-secondary animated-btn active:text-secondary"
             >
               Home
             </Link>
             <Link
-              to="#about"
+              to="/about"
               className="hover:text-secondary animated-btn active:text-secondary"
             >
               About us
             </Link>
             <Link
-              to="#pricing"
+              to="/pricing"
               className="hover:text-secondary animated-btn active:text-secondary"
             >
               Pricing
