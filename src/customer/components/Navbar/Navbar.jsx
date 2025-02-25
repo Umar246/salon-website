@@ -40,7 +40,7 @@ const Navbar = () => {
                 Pricing
               </Link>
               <Link
-                to="#blog"
+                to="/blog"
                 className="hover:text-secondary animated-btn  text-sm  font-light active:text-secondary"
               >
                 Blog
@@ -120,7 +120,7 @@ const Navbar = () => {
               Pricing
             </Link>
             <Link
-              to="#blog"
+              to="/blog"
               className="hover:text-secondary animated-btn active:text-secondary"
             >
               Blog
