@@ -46,7 +46,7 @@ const Navbar = () => {
                 Blog
               </Link>
               <Link
-                to="#contact"
+                to="/contact"
                 className="hover:text-secondary animated-btn  text-sm  font-light active:text-secondary"
               >
                 Contact us
@@ -126,7 +126,7 @@ const Navbar = () => {
               Blog
             </Link>
             <Link
-              to="#contact"
+              to="/contact"
               className="hover:text-secondary animated-btn active:text-secondary"
             >
               Contact us
