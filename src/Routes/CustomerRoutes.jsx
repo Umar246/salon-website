@@ -7,6 +7,7 @@ import AboutUs from "@/customer/pages/AboutUs/AboutUs";
 import Blog from "@/customer/pages/Blog/Blog";
 import BlogDetail from "@/customer/components/BlogComponents/Blogs/BlogDetail";
 import Contact from "@/customer/pages/Contact/Contact";
+import Faq from "@/customer/pages/Faq/Faq";
 
 export default function CustomerRoutes() {
   return (
@@ -21,6 +22,7 @@ export default function CustomerRoutes() {
         <Route path="/blog" element={<Blog />} />
         <Route path="/blog/:id" element={<BlogDetail />} />
         <Route path="/contact" element={<Contact/>} />
+        <Route path="/faq" element={<Faq/>} />
       </Routes>
       <div>
         <Footer />

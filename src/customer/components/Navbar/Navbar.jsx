@@ -52,7 +52,7 @@ const Navbar = () => {
                 Contact us
               </Link>
               <Link
-                to="#faq"
+                to="/faq"
                 className="hover:text-secondary animated-btn text-sm  font-light  active:text-secondary"
               >
                 FAQ
@@ -132,7 +132,7 @@ const Navbar = () => {
               Contact us
             </Link>
             <Link
-              to="#faq"
+              to="/faq"
               className="hover:text-secondary animated-btn active:text-secondary"
             >
               FAQ
