@@ -36,16 +36,16 @@ const Footer = () => {
                 <div className="flex gap-8">
                   <div className="flex flex-col gap-3 text-sm">
                     {/* 1 */}
-                    <Link to="#">About Us</Link>
-                    <Link to="#">Pricing</Link>
-                    <Link to="#"> Blog</Link>
-                    <Link to="#">Contact Us</Link>
+                    <Link to="/about">About Us</Link>
+                    <Link to="/pricing">Pricing</Link>
+                    <Link to="/blog"> Blog</Link>
+                    <Link to="/contact">Contact Us</Link>
                   </div>
                   <div className="flex flex-col gap-3 text-sm">
                     {/* 2 */}
-                    <Link to="#">FAQ</Link>
-                    <Link to="#">Privacy Policy</Link>
-                    <Link to="#">Terms of Service</Link>
+                    <Link to="/faq">FAQ</Link>
+                    <Link to="/privacy-policy">Privacy Policy</Link>
+                    <Link to="/terms-of-service">Terms of Service</Link>
                   </div>
                 </div>
               </div>

@@ -8,6 +8,8 @@ import Blog from "@/customer/pages/Blog/Blog";
 import BlogDetail from "@/customer/components/BlogComponents/Blogs/BlogDetail";
 import Contact from "@/customer/pages/Contact/Contact";
 import Faq from "@/customer/pages/Faq/Faq";
+import TermsOfService from "@/customer/pages/TermsOfService/TermsOfService";
+import PrivacyPolicy from "@/customer/pages/PrivacyPolicy/PrivacyPolicy";
 
 export default function CustomerRoutes() {
   return (
@@ -23,6 +25,8 @@ export default function CustomerRoutes() {
         <Route path="/blog/:id" element={<BlogDetail />} />
         <Route path="/contact" element={<Contact/>} />
         <Route path="/faq" element={<Faq/>} />
+        <Route path="/terms-of-service" element={<TermsOfService/>} />
+        <Route path="/privacy-policy" element={<PrivacyPolicy/>} />
       </Routes>
       <div>
         <Footer />
