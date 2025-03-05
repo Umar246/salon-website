@@ -18,6 +18,8 @@
     --color-primary: #005248;   /* Aapka primary color */
     --color-secondary: #F69705; /* Aapka secondary color */
     --color-neutral: #FFFFFF;
+    --color-info: #EFF8F7;
+    --color-success: #F8F8FE;
   }
 
 :root {
