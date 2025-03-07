@@ -41,7 +41,7 @@ export default function SignUpBussinessDetailCard() {
           </label>
           <div className="w-full">
             <PhoneInput
-              country="au" // Default country (Australia)
+              country="gb" // Default country (Australia)
               value={phone}
               onChange={setPhone}
               inputProps={{

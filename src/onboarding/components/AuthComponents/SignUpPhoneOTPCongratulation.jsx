@@ -1,6 +1,17 @@
-
+import phoneImg from "../../../assets/Images/SignUpPhoneOTPCongratulation.png";
 export default function SignUpPhoneOTPCongratulation() {
   return (
-    <div>SignUpPhoneOTPCongratulation</div>
-  )
+    <>
+      <div className="flex flex-col items-center justify-center mt-20 -mb-16 space-y-4">
+        <img src={phoneImg} alt="Lock_image" />
+        <h2 className="text-center text-2xl font-semibold text-primary">
+          Congratulations!
+        </h2>
+        <p className="text-center text-base w-full max-w-xs md:px-10 font-mulish mt-3 text-[#939393]">
+        Your contact number has been successfully
+        verified.
+        </p>
+      </div>
+    </>
+  );
 }
