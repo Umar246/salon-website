@@ -1,6 +1,5 @@
 import { useState } from "react";
-import { Card, CardContent, CardFooter } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
 import SignUpPhoneOTPCard from "./SignUpPhoneOTPCard";
 import SignUpPhoneOTPCongratulation from "./SignUpPhoneOTPCongratulation";
@@ -21,32 +20,13 @@ const SignUpPhoneOTPSteps = () => {
         <div className="flex items-center justify-center h-full">
           <Card className="w-full mx-2.5 max-w-sm md:max-w-lg px-2 md:px-6 py-10 mb-8 shadow-none rounded-md  md:rounded-2xl">
             <CardContent>
-              {step === 1 && <SignUpPhoneOTPCard/>}
-              {step === 2 && <SignUpPhoneOTPCongratulation/>}
+              {step === 1 && (
+                <SignUpPhoneOTPCard next={nextStep} prev={prevStep} />
+              )}
+              {step === 2 && (
+                <SignUpPhoneOTPCongratulation next={nextStep} prev={prevStep} />
+              )}
             </CardContent>
-
-            <CardFooter className="flex justify-between mt-24">
-              <Button
-                className={cn(
-                  "px-12 py-5 text-[#939393] text-base font-mulish",
-                  step === 2 && "hidden"
-                )}
-                variant="outline"
-                onClick={prevStep}
-              >
-                Back
-              </Button>
-              <Button
-                className={cn(
-                  "px-12 py-5 ms-auto bg-secondary hover:bg-amber-600 text-base font-mulish",
-                  step === 2 && "mx-auto"
-                )}
-                onClick={nextStep}
-              >
-                {step === 1 && "Verify"}
-                {step === 2 && "Confirm"}
-              </Button>
-            </CardFooter>
 
             {/* Dots Indicator */}
             <div className="flex justify-center space-x-4  mt-14">

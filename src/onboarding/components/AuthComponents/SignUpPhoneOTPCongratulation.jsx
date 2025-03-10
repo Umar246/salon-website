@@ -1,5 +1,11 @@
+import { cn } from "@/lib/utils";
 import phoneImg from "../../../assets/Images/SignUpPhoneOTPCongratulation.png";
+import { Button } from "@/components/ui/button";
+import { CardFooter } from "@/components/ui/card";
+import PropTypes from "prop-types";
+import { useNavigate } from "react-router-dom";
 export default function SignUpPhoneOTPCongratulation() {
+  const navigate = useNavigate();
   return (
     <>
       <div className="flex flex-col items-center justify-center mt-20 -mb-16 space-y-4">
@@ -8,10 +14,29 @@ export default function SignUpPhoneOTPCongratulation() {
           Congratulations!
         </h2>
         <p className="text-center text-base w-full max-w-xs md:px-10 font-mulish mt-3 text-[#939393]">
-        Your contact number has been successfully
-        verified.
+          Your contact number has been successfully verified.
         </p>
       </div>
+      <CardFooter className="flex justify-between mt-24">
+        <Button
+          className={cn(
+            "px-8 md:px-12 py-5 ms-auto bg-secondary hover:bg-amber-600 text-base font-mulish mx-auto"
+          )}
+          onClick={() => {
+            navigate("/auth/signup");
+            setTimeout(() => {
+              window.location.hash = "step-3";
+            }, 100);
+          }}
+        >
+          Confirm
+        </Button>
+      </CardFooter>
     </>
   );
 }
+
+SignUpPhoneOTPCongratulation.propTypes = {
+  next: PropTypes.func.isRequired,
+  prev: PropTypes.func.isRequired,
+};

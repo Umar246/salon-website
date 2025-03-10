@@ -1,6 +1,5 @@
-import { useState } from "react";
-import { Card, CardContent, CardFooter } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
+import { useEffect, useState } from "react";
+import { Card, CardContent } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
 import SignUpEmailCard from "./SignUpEmailCard";
 import SignUpBussinessDetailCard from "./SignUpBussinessDetailCard";
@@ -9,6 +8,30 @@ import SignUpCongratulationCard from "./SignUpCongratulationCard";
 
 const SignUpSteps = () => {
   const [step, setStep] = useState(1);
+
+  useEffect(() => {
+    const updateStepFromHash = () => {
+      const hash = window.location.hash.replace("#step-", "");
+      const stepFromHash = parseInt(hash, 10);
+      if (stepFromHash >= 1 && stepFromHash <= 4) {
+        setStep(stepFromHash);
+      }
+    };
+
+    // Page load par hash check karo
+    updateStepFromHash();
+
+    // Hash change ko listen karo
+    window.addEventListener("hashchange", updateStepFromHash);
+
+    return () => {
+      window.removeEventListener("hashchange", updateStepFromHash);
+    };
+  }, []);
+
+  useEffect(() => {
+    window.location.hash = `step-${step}`;
+  }, [step]);
 
   const nextStep = () => setStep((prev) => (prev < 4 ? prev + 1 : prev));
   const prevStep = () => setStep((prev) => (prev > 1 ? prev - 1 : prev));
@@ -23,38 +46,19 @@ const SignUpSteps = () => {
         <div className="flex items-center justify-center h-full">
           <Card className="w-full mx-2.5 max-w-sm md:max-w-lg px-2 md:px-6 py-10 mb-8 shadow-none rounded-md  md:rounded-2xl">
             <CardContent>
-              {step === 1 && <SignUpEmailCard />}
-              {step === 2 && <SignUpBussinessDetailCard />}
-              {step === 3 && <SignUpPasswordCard />}
-              {step === 4 && <SignUpCongratulationCard />}
+              {step === 1 && (
+                <SignUpEmailCard next={nextStep} prev={prevStep} />
+              )}
+              {step === 2 && (
+                <SignUpBussinessDetailCard next={nextStep} prev={prevStep} />
+              )}
+              {step === 3 && (
+                <SignUpPasswordCard next={nextStep} prev={prevStep} />
+              )}
+              {step === 4 && (
+                <SignUpCongratulationCard next={nextStep} prev={prevStep} />
+              )}
             </CardContent>
-
-            <CardFooter className="flex justify-between mt-24">
-              <Button
-                className={cn(
-                  "px-12 py-5 text-[#939393] text-base font-mulish",
-                  step === 1 && "hidden",
-                  step === 4 && "hidden"
-                )}
-                variant="outline"
-                onClick={prevStep}
-                disabled={step === 1}
-              >
-                Back
-              </Button>
-              <Button
-                className={cn(
-                  "px-12 py-5 ms-auto bg-secondary hover:bg-amber-600 text-base font-mulish",
-                  step === 4 && "mx-auto"
-                )}
-                onClick={nextStep}
-              >
-                {step === 1 && "Next"}
-                {step === 2 && "Next"}
-                {step === 3 && "Next"}
-                {step === 4 && "Confirm"}
-              </Button>
-            </CardFooter>
 
             {/* Dots Indicator */}
             <div className="flex justify-center space-x-4  mt-14">

@@ -4,8 +4,10 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 // import { Eye, EyeOff } from "lucide-react";
 import { FiEye, FiEyeOff } from "react-icons/fi";
+import { cn } from "@/lib/utils";
+import PropTypes from "prop-types";
 
-export default function SignUpPasswordCard() {
+export default function SignUpPasswordCard({ next, prev }) {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
@@ -36,7 +38,17 @@ export default function SignUpPasswordCard() {
               onClick={togglePasswordVisibility}
               className="absolute right-3 top-1/2 transform -translate-y-1/2 p-1"
             >
-              {showPassword ? <FiEyeOff className="text-[#939393] !h-4 !w-4 md:!h-5 md:!w-5" size={20} /> : <FiEye className="text-[#939393] !h-4 !w-4 md:!h-5 md:!w-5" size={20} />}
+              {showPassword ? (
+                <FiEyeOff
+                  className="text-[#939393] !h-4 !w-4 md:!h-5 md:!w-5"
+                  size={20}
+                />
+              ) : (
+                <FiEye
+                  className="text-[#939393] !h-4 !w-4 md:!h-5 md:!w-5"
+                  size={20}
+                />
+              )}
             </Button>
           </div>
         </div>
@@ -56,12 +68,48 @@ export default function SignUpPasswordCard() {
               onClick={toggleConfirmPasswordVisibility}
               className="absolute right-3 top-1/2 transform -translate-y-1/2 p-1"
             >
-              {showConfirmPassword ? <FiEyeOff className="text-[#939393] !h-4 !w-4 md:!h-5 md:!w-5" size={20} /> : <FiEye className="text-[#939393] !h-4 !w-4 md:!h-5 md:!w-5 " size={20} />}
+              {showConfirmPassword ? (
+                <FiEyeOff
+                  className="text-[#939393] !h-4 !w-4 md:!h-5 md:!w-5"
+                  size={20}
+                />
+              ) : (
+                <FiEye
+                  className="text-[#939393] !h-4 !w-4 md:!h-5 md:!w-5 "
+                  size={20}
+                />
+              )}
             </Button>
           </div>
         </div>
       </CardContent>
-      {/* Forgot Password */}
+
+      <div className="flex justify-between mt-24">
+        <Button
+          className={cn("px-8 md:px-12 py-5 text-[#939393] text-base font-mulish")}
+          variant="outline"
+          onClick={prev}
+        >
+          Back
+        </Button>
+        <Button
+          className={cn(
+            "px-8 md:px-12 py-5  bg-secondary hover:bg-amber-600 text-base font-mulish"
+          )}
+          onClick={next}
+        >
+          Next
+          {/* {step === 1 && "Next"}
+                      {step === 2 && "Next"}
+                      {step === 3 && "Next"}
+                      {step === 4 && "Confirm"} */}
+        </Button>
+      </div>
     </>
   );
 }
+
+SignUpPasswordCard.propTypes = {
+  next: PropTypes.func.isRequired,
+  prev: PropTypes.func.isRequired,
+};

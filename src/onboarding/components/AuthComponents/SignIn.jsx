@@ -1,10 +1,10 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent } from "@/components/ui/card";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 export default function SignIn() {
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   return (
     <div className="bg-info min-h-screen flex flex-col justify-center">
       <div className="px-5 pt-5 pb-10 md:pb-0">
@@ -35,24 +35,24 @@ export default function SignIn() {
                 placeholder="Password"
                 className="mt-3  bg-success shadow-none border-0"
               />
-              <a
-                href="#"
+              <Link
+                to={"/auth/forgot-password"}
                 className="text-xs text-end block text-gray-500 hover:underline mt-3"
               >
                 Forgot Password?
-              </a>
+              </Link>
             </div>
             <div className="w-full md:w-auto text-center">
-              <Button
-                onClick={() => navigate("/auth/forgot-password")}
-                className="bg-secondary w-full md:w-auto px-10 py-5 animated-btn hover:bg-amber-500"
-              >
+              <Button className="bg-secondary w-full md:w-auto px-10 py-5 animated-btn hover:bg-amber-500">
                 Sign In
               </Button>
             </div>
             <p className="text-center text-sm text-gray-700 ">
               Don’t have an account?{" "}
-              <Link to={"/auth/signup"} className="text-secondary hover:underline">
+              <Link
+                to={"/auth/signup"}
+                className="text-secondary hover:underline"
+              >
                 Sign Up
               </Link>
             </p>
