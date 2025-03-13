@@ -1,16 +1,21 @@
 import { Input } from "@/components/ui/input";
 import { CardContent } from "@/components/ui/card";
 import PhoneInput from "react-phone-input-2";
-import { useState } from "react";
+// import { useState } from "react";
 import "react-phone-input-2/lib/style.css";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import PropTypes from "prop-types";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 
-export default function SignUpBussinessDetailCard({ prev }) {
-  const [phone, setPhone] = useState("");
-  const navigate = useNavigate();
+export default function SignUpBussinessDetailCard({
+  next,
+  prev,
+  handleChange,
+  formData,
+}) {
+  // const [phone, setPhone] = useState("");
+  // const navigate = useNavigate();
   return (
     <>
       <h2 className="text-center text-2xl font-semibold text-primary">
@@ -25,7 +30,10 @@ export default function SignUpBussinessDetailCard({ prev }) {
             Bussiness Name
           </label>
           <Input
-            type="email"
+            type="text"
+            name="businessName"
+            value={formData.businessName}
+            onChange={handleChange}
             placeholder="Write name of your bussiness..."
             className="mt-3 bg-success shadow-none border-0 h-10 md:h-12 focus:!ring-1 focus:!ring-secondary"
           />
@@ -35,7 +43,10 @@ export default function SignUpBussinessDetailCard({ prev }) {
             Your Name
           </label>
           <Input
-            type="Write your name..."
+            type="text"
+            name="userName"
+            value={formData.userName}
+            onChange={handleChange}
             placeholder="Write your email address..."
             className="mt-3 bg-success shadow-none border-0 h-10 md:h-12 focus:!ring-1 focus:!ring-secondary"
           />
@@ -46,9 +57,13 @@ export default function SignUpBussinessDetailCard({ prev }) {
           </label>
           <div className="w-full">
             <PhoneInput
-              country="gb" // Default country (Australia)
-              value={phone}
-              onChange={setPhone}
+              country="gb"
+              type="phone"
+              name="phone"
+              value={formData.phone}
+              onChange={(value) =>
+                handleChange({ target: { name: "phone", value } })
+              } // Fix applied here
               inputProps={{
                 placeholder: "Enter your phone number",
               }}
@@ -63,7 +78,9 @@ export default function SignUpBussinessDetailCard({ prev }) {
 
       <div className="flex justify-between mt-24">
         <Button
-          className={cn("px-8 md:px-12 py-5 text-[#939393] text-base font-mulish")}
+          className={cn(
+            "px-8 md:px-12 py-5 text-[#939393] text-base font-mulish"
+          )}
           variant="outline"
           onClick={prev}
         >
@@ -73,7 +90,8 @@ export default function SignUpBussinessDetailCard({ prev }) {
           className={cn(
             "px-8 md:px-12 py-5  bg-secondary hover:bg-amber-600 text-base font-mulish"
           )}
-          onClick={() => navigate("/auth/signup/phone-verify")}
+          // onClick={() => navigate("/auth/signup/phone-verify")}
+          onClick={next}
         >
           Next
         </Button>
@@ -86,4 +104,6 @@ export default function SignUpBussinessDetailCard({ prev }) {
 SignUpBussinessDetailCard.propTypes = {
   next: PropTypes.func.isRequired,
   prev: PropTypes.func.isRequired,
+  handleChange: PropTypes.func.isRequired,
+  formData: PropTypes.object.isRequired,
 };

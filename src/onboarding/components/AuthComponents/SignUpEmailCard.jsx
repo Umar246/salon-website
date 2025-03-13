@@ -3,10 +3,15 @@ import { CardContent, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import PropTypes from "prop-types";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 
-export default function SignUpEmailCard() {
-  const navigate = useNavigate();
+export default function SignUpEmailCard({
+  next,
+  handleChange,
+  formData,
+  loading,
+}) {
+  // const navigate = useNavigate();
   return (
     <>
       <h2 className="text-center text-2xl font-semibold text-primary">
@@ -22,6 +27,9 @@ export default function SignUpEmailCard() {
           </label>
           <Input
             type="email"
+            name="email"
+            onChange={handleChange}
+            value={formData.email}
             placeholder="Write your email address..."
             className="mt-3 bg-success shadow-none h-10 md:h-12  border-0 focus:!ring-1 focus:!ring-secondary"
           />
@@ -29,12 +37,13 @@ export default function SignUpEmailCard() {
       </CardContent>
       <CardFooter className="flex justify-between mt-24">
         <Button
+          onClick={next}
           className={cn(
             "px-8 md:px-12 py-5 ms-auto bg-secondary hover:bg-amber-600 text-base font-mulish"
           )}
-          onClick={() => navigate("/auth/signup/email-verify")}
+          // onClick={() => navigate("/auth/signup/email-verify")}
         >
-          Next
+          {loading ? "Checking..." : "Next"}
           {/* {step === 1 && "Next"}
             {step === 2 && "Next"}
             {step === 3 && "Next"}
@@ -47,4 +56,7 @@ export default function SignUpEmailCard() {
 
 SignUpEmailCard.propTypes = {
   next: PropTypes.func.isRequired,
+  handleChange: PropTypes.func.isRequired,
+  formData: PropTypes.object.isRequired,
+  loading: PropTypes.bool,
 };

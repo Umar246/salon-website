@@ -5,6 +5,8 @@ import {
   InputOTPGroup,
   InputOTPSlot,
 } from "@/components/ui/input-otp";
+import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 
 export default function EmailOTP() {
   return (
@@ -52,10 +54,27 @@ export default function EmailOTP() {
               />
             </InputOTPGroup>
           </InputOTP>
-          <p className="text-xs font-mulish text-gray-400 mt-6 ps-3"><span className="text-secondary">Resend</span> confirmation code (1:07)</p>
+          <p className="text-xs font-mulish text-gray-400 mt-6 ps-3">
+            <span className="text-secondary">Resend</span> confirmation code
+            (1:07)
+          </p>
         </div>
       </CardContent>
-      
+      <div className="flex justify-between mt-24">
+        <Button
+          className={cn("px-12 py-5 text-[#939393] text-base font-mulish")}
+          variant="outline"
+        >
+          Back
+        </Button>
+        <Button
+          className={cn(
+            "px-12 py-5 ms-auto bg-secondary hover:bg-amber-600 text-base font-mulish"
+          )}
+        >
+          Verify
+        </Button>
+      </div>
     </>
   );
 }
