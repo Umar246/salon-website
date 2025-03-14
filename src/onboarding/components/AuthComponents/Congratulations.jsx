@@ -1,7 +1,9 @@
 import { Button } from "@/components/ui/button";
 import lockImg from "../../../assets/Images/forgotPasswordCongratulation.png";
 import { cn } from "@/lib/utils";
+import { useNavigate } from "react-router-dom";
 export default function Congratulations() {
+  const navigate = useNavigate();
   return (
     <>
       <div className="flex flex-col items-center justify-center mt-20 space-y-4">
@@ -15,6 +17,7 @@ export default function Congratulations() {
       </div>
       <div className="flex justify-between mt-24">
         <Button
+          onClick={() => navigate("/auth/")}
           className={cn(
             "px-12 py-5 ms-auto bg-secondary hover:bg-amber-600 text-base font-mulish mx-auto"
           )}

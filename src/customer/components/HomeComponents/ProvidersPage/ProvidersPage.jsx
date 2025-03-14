@@ -30,29 +30,28 @@ const providerData = [
 export default function ProvidersPage() {
   return (
     <motion.div
-    initial={{ opacity: 0, y: 50 }}
-    whileInView={{ opacity: 1, y: 0 }}
-    viewport={{ once: true }}
-    transition={{ duration: 3 }}
-  >
-   <div className="w-[85%] mx-auto mt-5 md:mt-20">
-      <div className="flex flex-col items-center">
-        {/* <p className="text-xs text-center font-mulish">Salon LITE</p> */}
-        <h1 className="font-bold text-2xl text-center lg:w-sm font-playfair">
-          Our providers say it best
-        </h1>
-      </div>
+      initial={{ opacity: 0, y: 50 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 3 }}
+    >
+      <div className="w-[85%] mx-auto mt-5 md:mt-20">
+        <div className="flex flex-col items-center">
+          {/* <p className="text-xs text-center font-mulish">Salon LITE</p> */}
+          <h1 className="font-bold text-2xl text-center lg:w-sm font-playfair">
+            Our providers say it best
+          </h1>
+        </div>
 
-      <div className="mt-10 grid grid-cols-1 md:grid-cols-2 font-mulish lg:grid-cols-3 mx-auto lg:px-20 2xl:grid-cols-4 gap-14 md:gap-8">
-        {providerData.map((provider, index) => {
-          // const Icon = card.icon; // Dynamic icon component
-          return (
-            <>
-              <div className="flex flex-col justify-center items-center gap-3">
-                <div
-                  key={index}
-                  className="flex flex-col items-center justify-center"
-                >
+        <div className="mt-10 grid grid-cols-1 md:grid-cols-2 font-mulish lg:grid-cols-3 mx-auto lg:px-20 2xl:grid-cols-4 gap-14 md:gap-8">
+          {providerData.map((provider, index) => {
+            // const Icon = card.icon; // Dynamic icon component
+            return (
+              <div
+                key={index}
+                className="flex flex-col justify-center items-center gap-3"
+              >
+                <div className="flex flex-col items-center justify-center">
                   {/* Decreasing image width and height */}
                   <img
                     src={provider.image}
@@ -72,11 +71,10 @@ export default function ProvidersPage() {
                   </p>
                 </div>
               </div>
-            </>
-          );
-        })}
+            );
+          })}
+        </div>
       </div>
-    </div>
     </motion.div>
   );
 }

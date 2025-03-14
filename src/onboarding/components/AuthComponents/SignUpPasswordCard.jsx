@@ -17,9 +17,10 @@ export default function SignUpPasswordCard({
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
-  const togglePasswordVisibility = () => setShowPassword((prev) => !prev);
+  const togglePasswordVisibility = () =>
+    setShowPassword((previous) => !previous);
   const toggleConfirmPasswordVisibility = () =>
-    setShowConfirmPassword((prev) => !prev);
+    setShowConfirmPassword((previous) => !previous);
   return (
     <>
       <h2 className="text-center text-2xl font-semibold text-primary">
@@ -48,12 +49,12 @@ export default function SignUpPasswordCard({
               className="absolute right-3 top-1/2 transform -translate-y-1/2 p-1"
             >
               {showPassword ? (
-                <FiEyeOff
+                <FiEye
                   className="text-[#939393] !h-4 !w-4 md:!h-5 md:!w-5"
                   size={20}
                 />
               ) : (
-                <FiEye
+                <FiEyeOff
                   className="text-[#939393] !h-4 !w-4 md:!h-5 md:!w-5"
                   size={20}
                 />
@@ -81,12 +82,12 @@ export default function SignUpPasswordCard({
               className="absolute right-3 top-1/2 transform -translate-y-1/2 p-1"
             >
               {showConfirmPassword ? (
-                <FiEyeOff
+                <FiEye
                   className="text-[#939393] !h-4 !w-4 md:!h-5 md:!w-5"
                   size={20}
                 />
               ) : (
-                <FiEye
+                <FiEyeOff
                   className="text-[#939393] !h-4 !w-4 md:!h-5 md:!w-5 "
                   size={20}
                 />
@@ -149,6 +150,7 @@ export default function SignUpPasswordCard({
 
 SignUpPasswordCard.propTypes = {
   next: PropTypes.func.isRequired,
+  // checkPassword: PropTypes.func.isRequired,
   prev: PropTypes.func.isRequired,
   handleChange: PropTypes.func.isRequired,
   formData: PropTypes.object.isRequired,

@@ -20,30 +20,6 @@ const SignUpSteps = () => {
     confirmPassword: "",
   });
 
-  // useEffect(() => {
-  //   const updateStepFromHash = () => {
-  //     const hash = window.location.hash.replace("#step-", "");
-  //     const stepFromHash = parseInt(hash, 10);
-  //     if (stepFromHash >= 1 && stepFromHash <= 4) {
-  //       setStep(stepFromHash);
-  //     }
-  //   };
-
-  //   // Page load par hash check karo
-  //   updateStepFromHash();
-
-  //   // Hash change ko listen karo
-  //   window.addEventListener("hashchange", updateStepFromHash);
-
-  //   return () => {
-  //     window.removeEventListener("hashchange", updateStepFromHash);
-  //   };
-  // }, []);
-
-  // useEffect(() => {
-  //   window.location.hash = `step-${step}`;
-  // }, [step]);
-
   const nextStep = () => setStep((prev) => (prev < 4 ? prev + 1 : prev));
   const prevStep = () => setStep((prev) => (prev > 1 ? prev - 1 : prev));
   // const goToStep = (stepNumber) => setStep(stepNumber);
@@ -54,46 +30,99 @@ const SignUpSteps = () => {
   };
 
   // 🔹 Handle Signup (Final Step)
-  const handleSignup = async () => {
-    if (formData.password !== formData.confirmPassword) {
-      toast.error("Passwords do not match!");
-      return;
-    }
+  const handleSignup = async (e) => {
+    e.preventDefault();
+    try {
+      //TODO: Validate phone number: must have at least 8 digits
+      // const phoneDigits = formData?.phone?.replace(/\D/g, "");
+      // console.log(phoneDigits);
+      // if (phoneDigits.length < 8)
+      //   toast.error("Please enter at least 8 digits for your phone number.");
+      //   return;
+      // }
 
-    setLoading(true);
-    const { data, error } = await supabase.auth.signUp({
-      email: formData.email,
-      password: formData.password,
-      options: {
-        data: {
-          email: formData.email,
-          business_name: formData.businessName,
-          user_name: formData.userName,
-          phone: formData.phone,
+      //  Validate password
+      if (formData.password !== formData.confirmPassword) {
+        toast.error("Passwords do not match!");
+        return;
+      }
+
+      setLoading(true);
+      const { data, error } = await supabase.auth.signUp({
+        email: formData.email,
+        password: formData.password,
+        options: {
+          emailRedirectTo: "http://localhost:5173/onboarding",
+          data: {
+            email: formData.email,
+            business_name: formData.businessName,
+            user_name: formData.userName,
+            phone: formData.phone,
+          },
         },
-      },
-    });
+      });
 
-    if (error) {
-      alert("signup error: ", error.message);
+      console.log(data);
+      console.log(error);
+
+      if (error) {
+        toast.error(error.message);
+        setLoading(false);
+      } else if (
+        data.user &&
+        data.user.identities &&
+        data.user.identities.length === 0
+      ) {
+        // When the identities array is empty, it indicates the email is already registered
+        toast.error(
+          `Email ${formData?.email} is already registered. Please log in instead.`
+        );
+        setLoading(false);
+      } else {
+        // Sign up successful (pending email confirmation)
+        toast.success("User resgistered successfully");
+        setFormData({});
+        setLoading(false);
+        setStep(4);
+      }
+    } catch (error) {
+      toast.error(error.message);
       setLoading(false);
-      return;
     }
-    console.log("data", data);
-    setFormData({});
-    setLoading(false);
-    // await supabase.from("users").insert([
-    //   {
-    //     id: data.user?.id,
-    //     email: formData.email,
-    //     business_name: formData.businessName,
-    //     user_name: formData.userName,
-    //     phone: formData.phone,
-    //   },
-    // ]);
-
-    setStep(4);
   };
+
+  // const handleNext = async () => {
+  //   try {
+  //     const email = formData?.email;
+  //     const { data, error } = await supabase.auth.signUp({
+  //       email,
+  //       password: "dummyPassword", // This is a placeholder
+  //     });
+  //     console.log(formData?.email);
+  //     console.log("DATA: ", data);
+  //     console.log("ERROR: ", error);
+
+  //     if (error) {
+  //       toast.error(error.message);
+  //     } else if (
+  //       data.user &&
+  //       data.user.identities &&
+  //       data.user.identities.length === 0
+  //     ) {
+  //       // When the identities array is empty, it indicates the email is already registered
+  //       toast.error(
+  //         `Email ${email} is already registered. Please log in instead.`
+  //       );
+  //     } else {
+  //       // Sign up successful (pending email confirmation)
+  //       toast.success("Email resgistered successfully");
+  //       nextStep();
+  //     }
+  //   } catch (error) {
+  //     // nextStep();
+  //     toast.error(error.message);
+  //   }
+  // };
 
   return (
     <>
@@ -107,6 +136,7 @@ const SignUpSteps = () => {
               {step === 1 && (
                 <SignUpEmailCard
                   next={nextStep}
+                  // handleNext={handleNext}
                   prev={prevStep}
                   handleChange={handleChange}
                   formData={formData}

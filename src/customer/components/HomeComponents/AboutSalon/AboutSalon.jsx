@@ -44,16 +44,14 @@ export default function AboutSalon() {
           <div className="py-5 md:py-10 grid grid-cols-1 md:grid-cols-2 px-10 font-mulish gap-10 lg:gap-6 justify-center w-full mx-auto text-center md:text-start">
             {sectionData.map((info, index) => {
               return (
-                <>
-                  <div className="space-y-1" key={index}>
-                    <h1 className="text-primary text-3xl font-extrabold">
-                      {info.title}
-                    </h1>
-                    <p className="text-sm font-mulish md:pe-10">
-                      {info.description}
-                    </p>
-                  </div>
-                </>
+                <div className="space-y-1" key={index}>
+                  <h1 className="text-primary text-3xl font-extrabold">
+                    {info.title}
+                  </h1>
+                  <p className="text-sm font-mulish md:pe-10">
+                    {info.description}
+                  </p>
+                </div>
               );
             })}
           </div>

@@ -5,37 +5,22 @@ import ForgotPassword from "./ForgotPassword";
 // import EmailOTP from "./EmailOTP";
 import Congratulations from "./Congratulations";
 import ResetPassword from "./ResetPassword";
+// import { useSearchParams } from "react-router-dom";
 
 const ForgotPasswordMultiStep = () => {
   const [step, setStep] = useState(1);
+  // const [searchParams, setSearchParams] = useSearchParams();
 
   useEffect(() => {
-    const updateStepFromHash = () => {
-      const hash = window.location.hash.replace("#step-", "");
-      const stepFromHash = parseInt(hash, 10);
-      if (stepFromHash >= 1 && stepFromHash <= 4) {
-        setStep(stepFromHash);
-      }
-    };
-
-    // Page load par hash check karo
-    updateStepFromHash();
-
-    // Hash change ko listen karo
-    window.addEventListener("hashchange", updateStepFromHash);
-
-    return () => {
-      window.removeEventListener("hashchange", updateStepFromHash);
-    };
+    const query = new URLSearchParams(window.location.search);
+    const stepParam = query.get("step");
+    if (stepParam && [1, 2, 3].includes(Number(stepParam))) {
+      setStep(Number(stepParam));
+    }
   }, []);
 
-  useEffect(() => {
-    window.location.hash = `step-${step}`;
-  }, [step]);
-  
   const nextStep = () => setStep((prev) => (prev < 3 ? prev + 1 : prev));
   const prevStep = () => setStep((prev) => (prev > 1 ? prev - 1 : prev));
-  const goToStep = (stepNumber) => setStep(stepNumber);
 
   return (
     <>
@@ -46,7 +31,13 @@ const ForgotPasswordMultiStep = () => {
         <div className="flex items-center justify-center h-full">
           <Card className="w-full mx-2.5 max-w-sm md:max-w-lg px-2 md:px-6 py-10 mb-8 shadow-none rounded-md  md:rounded-2xl">
             <CardContent>
-              {step === 1 && <ForgotPassword next={nextStep} prev={prevStep} />}
+              {step === 1 && (
+                <ForgotPassword
+                  setStep={setStep}
+                  next={nextStep}
+                  prev={prevStep}
+                />
+              )}
               {/* {step === 2 && <EmailOTP next={nextStep} prev={prevStep} />} */}
               {step === 2 && <ResetPassword next={nextStep} prev={prevStep} />}
               {step === 3 && (
@@ -59,7 +50,6 @@ const ForgotPasswordMultiStep = () => {
               {[1, 2, 3].map((dot) => (
                 <div
                   key={dot}
-                  onClick={() => goToStep(dot)}
                   className={cn(
                     "h-2.5 w-2.5 rounded-full transition-all",
                     step === dot ? "bg-secondary" : "bg-secondary opacity-50"
