@@ -1,6 +1,7 @@
 import { Route, Routes } from "react-router-dom";
 import "./App.css";
 import CustomerRoutes from "./Routes/CustomerRoutes";
+import AuthRoutes from "./Routes/AuthRoutes";
 import OnboardingRoutes from "./Routes/OnboardingRoutes";
 
 function App() {
@@ -8,7 +9,8 @@ function App() {
     <>
         <Routes>
           <Route path="/*" element={<CustomerRoutes />} />
-          <Route path="/auth/*" element={<OnboardingRoutes/>} />
+          <Route path="/auth/*" element={<AuthRoutes/>} />
+          <Route path="/onboarding/*" element={<OnboardingRoutes/>} />
         </Routes>
         </>
   );
