@@ -1,5 +1,3 @@
-import { Outlet, Route, Routes } from "react-router-dom";
-
 // React Icons (choose whichever icons you prefer)
 import {
   FaTachometerAlt,
@@ -29,10 +27,8 @@ function OnboardingLayout() {
   ];
 
   return (
-    <div className="flex h-screen">
-      {/* ===== Desktop Sidebar ===== */}
+    <div className="flex h-screen overflow-x-hidden">
       <aside className="flex flex-col w-12 md:w-16 bg-primary text-white">
-        {/* Scrollable area for menu */}
         <div className="flex-1 overflow-y-auto">
           <nav className="flex flex-col items-center">
             <div>
@@ -66,16 +62,11 @@ function OnboardingLayout() {
         </div>
       </aside>
 
-      {/* ===== Main Content Area ===== */}
-      <main className="flex-1 flex flex-col bg-info py-7 md:py-10 px-3 md:px-8 overflow-y-auto">
-        {/* Renders the nested route content (from react-router-dom) */}
-        <Outlet />
-
-        {/* Define your routes here if you want them in the same file */}
-        <Routes>
-          <Route path="/" element={<OnboardingHome />} />
-        </Routes>
-      </main>
+      <div className="flex-1 overflow-x-hidden">
+        <main className="flex flex-col bg-info py-7 md:py-10 px-3 md:px-8 overflow-y-auto max-w-full">
+          {<OnboardingHome />}
+        </main>
+      </div>
     </div>
   );
 }
