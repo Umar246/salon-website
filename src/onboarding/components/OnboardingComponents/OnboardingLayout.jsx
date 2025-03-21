@@ -63,7 +63,7 @@ function OnboardingLayout() {
       </aside>
 
       <div className="flex-1 overflow-x-hidden">
-        <main className="flex flex-col bg-info py-7 md:py-10 px-3 md:px-8 overflow-y-auto max-w-full">
+        <main className="bg-info py-7 md:py-10 px-3 md:px-4 lg:px-8 max-w-full min-h-screen">
           {<OnboardingHome />}
         </main>
       </div>

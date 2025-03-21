@@ -64,7 +64,7 @@ const Navbar = () => {
           <div className="flex justify-end space-x-5">
             {/* <div className="flex items-center "> */}
             <Link
-              to={"#"}
+              to={"/auth"}
               className="flex items-center  animated-btn gap-2 bg-transparent text-neutral font-light px-3 py-1 rounded hover:text-secondary"
             >
               <span className="font-light">
@@ -140,7 +140,7 @@ const Navbar = () => {
           </div>
           <div className="flex flex-col space-y-3 mt-5 mb-2">
             <Link
-              to="#"
+              to="/auth"
               className="flex animated-btn items-center gap-2 justify-center bg-transparent  text-neutral px-3 py-1 rounded hover:text-secondary"
             >
               <span className="font-light">
