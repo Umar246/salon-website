@@ -44,7 +44,7 @@ const StepperContainer = () => {
         setCurrentStep={setCurrentStep}
       />
 
-      <div className="md:col-span-8 lg:col-span-9  p-6 h-screen bg-neutral rounded-xl md:rounded-3xl overflow-y-auto flex flex-col">
+      <div className="md:col-span-8 lg:col-span-9 p-2 md:p-4 lg:p-6 min-h-screen bg-neutral rounded-xl md:rounded-3xl overflow-y-auto flex flex-col">
         {/* <h2 className="text-2xl font-bold mb-4">{steps[currentStep].title}</h2>
         <p>{steps[currentStep].description}</p>
         <div className="flex gap-3 mt-6">
