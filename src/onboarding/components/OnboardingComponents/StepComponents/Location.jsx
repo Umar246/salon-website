@@ -129,7 +129,7 @@ function Location() {
           </Button>
         </div>
       ) : (
-        <div className="flex flex-col items-center justify-between min-h-screen">
+        <div className="flex flex-col items-center justify-between min-h-screen lg:px-8">
           <div className="w-full flex flex-col gap-5 md:gap-10">
             <div className="flex items-center w-full">
               <button
@@ -143,51 +143,51 @@ function Location() {
               </h2>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 lg:gap-8">
               <div>
                 <label className="block text-sm font-mulish text-gray-700">
-                  Email
+                  Address
                 </label>
                 <Input
-                  type="email"
-                  name="email"
-                  placeholder="Write your email address..."
+                  type="text"
+                  name="address"
+                  placeholder="Write address..."
                   className="mt-3 bg-[#F8F8FE] shadow-none border-0 h-10 md:h-12 focus:!ring-1 focus:!ring-secondary"
                   required
                 />
               </div>
               <div>
                 <label className="block text-sm font-mulish text-gray-700">
-                  Email
+                  Street & Number
                 </label>
                 <Input
-                  type="email"
-                  name="email"
-                  placeholder="Write your email address..."
+                  type="text"
+                  name="street"
+                  placeholder="Write street & number..."
                   className="mt-3 bg-[#F8F8FE] shadow-none border-0 h-10 md:h-12 focus:!ring-1 focus:!ring-secondary"
                   required
                 />
               </div>
               <div>
                 <label className="block text-sm font-mulish text-gray-700">
-                  Email
+                  City
                 </label>
                 <Input
-                  type="email"
-                  name="email"
-                  placeholder="Write your email address..."
+                  type="text"
+                  name="city"
+                  placeholder="Write city name..."
                   className="mt-3 bg-[#F8F8FE] shadow-none border-0 h-10 md:h-12 focus:!ring-1 focus:!ring-secondary"
                   required
                 />
               </div>
               <div>
                 <label className="block text-sm font-mulish text-gray-700">
-                  Email
+                  Zip Code
                 </label>
                 <Input
-                  type="email"
-                  name="email"
-                  placeholder="Write your email address..."
+                  type="number"
+                  name="zipCode"
+                  placeholder="Write zip code..."
                   className="mt-3 bg-[#F8F8FE] shadow-none border-0 h-10 md:h-12 focus:!ring-1 focus:!ring-secondary"
                   required
                 />
