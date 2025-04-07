@@ -38,7 +38,8 @@ const steps = [
 
 const OnboardingSteps = ({ currentStep, setCurrentStep }) => {
   return (
-    <div className="md:col-span-4 lg:col-span-3 p-6 rounded-xl md:rounded-3xl flex flex-col  bg-neutral">
+    <div className="md:col-span-4 lg:col-span-3 p-6 
+     rounded-xl md:rounded-3xl flex flex-col  bg-neutral min-h-screen">
       {steps.map((step, index) => {
         const isCompleted = index < currentStep;
         const isActive = index === currentStep;
