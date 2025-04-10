@@ -1,6 +1,8 @@
 import { useRef, useState } from "react";
 import Papa from "papaparse";
 import { Button } from "@/components/ui/button";
+import { LuSquareArrowUp } from "react-icons/lu";
+import { RxCrossCircled } from "react-icons/rx";
 
 export default function ClientContacts() {
   const fileInputRef = useRef(null);
@@ -17,7 +19,7 @@ export default function ClientContacts() {
         const parsed = result.data.map((row) => ({
           name: row.name,
           email: row.email,
-          image: "https://randomuser.me/api/portraits/men/32.jpg", // default avatar
+          image: row.imageUrl, // default avatar
         }));
         setClients(parsed);
       },
@@ -36,43 +38,53 @@ export default function ClientContacts() {
       <div className="h-full">
         <div className="flex justify-between items-center">
           <h2 className="text-base text-center w-full md:text-xl text-primary font-mulish font-bold">
-            Upload Clients Contactss
+            Upload Clients Contacts
           </h2>
-          <button className="text-gray-400 underline hover:text-secondary text-sm">
+          {/* <button className="text-gray-400 underline hover:text-secondary text-sm">
             Skip
-          </button>
+          </button> */}
         </div>
 
         {/* Import file code */}
-        <div className="flex flex-col md:flex-row gap-6  mt-10">
+        <div className="flex flex-col lg:flex-row gap-10 md:w-[90%] mx-auto md:gap-14 lg:gap-8 mt-10">
           {/* Upload Box */}
-          <div
-            onClick={triggerFileInput}
-            className="cursor-pointer border border-gray-300 rounded-xl p-6 w-full md:w-1/2 h-64 flex flex-col justify-center items-center text-center hover:border-orange-400"
-          >
-            <div className="text-4xl mb-2">⬆️</div>
-            <p className="text-gray-600">
-              Click to upload contacts of file your clients
-            </p>
-            <input
-              type="file"
-              ref={fileInputRef}
-              onChange={handleFileUpload}
-              accept=".csv"
-              className="hidden"
-            />
+          <div className="w-full lg:w-1/3 flex flex-col justify-center">
+            <div
+              onClick={triggerFileInput}
+              className={`cursor-pointer border border-gray-300 rounded-xl p-6 h-46 flex flex-col justify-center items-center text-center hover:border-secondary`}
+            >
+              <div className="text-4xl text-[#939393] mb-3">
+                <LuSquareArrowUp size={48} />
+              </div>
+              <p className="text-gray-600 font-molish">
+                Click to upload contacts of file your clients
+              </p>
+              <input
+                type="file"
+                ref={fileInputRef}
+                onChange={handleFileUpload}
+                accept=".csv"
+                className="hidden"
+              />
+            </div>
+            <div className="flex items-center gap-6 mt-6">
+              <Button className="bg-secondary hover:bg-amber-600 py-5 w-full rounded-sm">
+                Click to Download CSV File
+              </Button>
+            </div>
           </div>
 
           {/* Contacts List */}
-          <div className="w-full md:w-1/2">
-            <h3 className="font-semibold text-lg mb-4">
+          <div className="w-full lg:w-2/3">
+            <h3 className="font-semibold text-[#242424] font-mulish text-lg mb-4">
               Clients Contacts List
             </h3>
             <div className="space-y-3 max-h-64 overflow-y-auto">
               {clients.map((client, index) => (
                 <div
                   key={index}
-                  className="flex items-center justify-between bg-white rounded-xl p-3 shadow-sm"
+                  className="flex items-center justify-between bg-white rounded-xl p-4"
+                  style={{ boxShadow: "0px 4px 12px 0px rgba(0, 0, 0, 0.1)" }}
                 >
                   <div className="flex items-center gap-3">
                     <img
@@ -86,25 +98,15 @@ export default function ClientContacts() {
                     </div>
                   </div>
                   <button
-                    className="text-gray-400 hover:text-red-500 text-xl"
+                    className="text-gray-400 hover:text-secondary text-xl"
                     onClick={() => removeClient(index)}
                   >
-                    ×
+                    <RxCrossCircled size={20} />
                   </button>
                 </div>
               ))}
             </div>
           </div>
-        </div>
-
-        {/* Download CSV + How to Use */}
-        <div className="flex items-center gap-6 mt-6">
-          <Button className="bg-orange-400 hover:bg-orange-500">
-            Click to Download CSV File
-          </Button>
-          <a href="#" className="text-orange-500 underline text-sm">
-            How to use?
-          </a>
         </div>
       </div>
 
