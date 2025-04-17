@@ -41,6 +41,24 @@ function Service() {
     setShowSubCategorySidebar(false);
   };
 
+  const handleDeleteService = (index) => {
+    const updated = [...services];
+    updated.splice(index, 1);
+    setServices(updated);
+  };
+
+  const handleDeleteCategory = (index) => {
+    const updated = [...categories];
+    updated.splice(index, 1);
+    setCategories(updated);
+  };
+
+  const handleDeleteSubCategory = (catIndex, subIndex) => {
+    const updated = [...categories];
+    updated[catIndex].subCategories.splice(subIndex, 1);
+    setCategories(updated);
+  };
+
   const handleAddService = () => {
     setServices([...services, serviceForm]);
     setServiceForm({
@@ -74,7 +92,7 @@ function Service() {
   };
 
   return (
-    <div className="py-4 px-2 sm:px-4 md:px-6 lg:px-8 font-mulish relative">
+    <div className=" font-mulish relative">
       {!showServiceForm ? (
         <div className="flex flex-col justify-between min-h-screen">
           <div className="flex flex-col lg:flex-row gap-4">
@@ -89,7 +107,8 @@ function Service() {
                 <IoIosAddCircleOutline />
                 <span>Add Category</span>
               </Button>
-              <ul className="mt-4 space-y-2">
+              <ul className="mt-4 md:mt-8 space-y-2">
+                <h1 className="text-sm text-[#939393]">All Categories</h1>
                 {categories.map((cat, index) => (
                   <li key={index}>
                     <div className="flex justify-between items-center">
@@ -115,10 +134,7 @@ function Service() {
                           size="sm"
                           variant="ghost"
                           className="hover:bg-transparent cursor-pointer text-gray-400"
-                          onClick={() => {
-                            setSelectedCategoryIndex(index);
-                            setShowSubCategorySidebar(true);
-                          }}
+                          onClick={() => handleDeleteCategory(index)}
                         >
                           <RxCrossCircled />
                         </Button>
@@ -141,10 +157,9 @@ function Service() {
                               size="sm"
                               variant="ghost"
                               className="hover:bg-transparent cursor-pointer text-gray-400"
-                              onClick={() => {
-                                setSelectedCategoryIndex(index);
-                                setShowSubCategorySidebar(true);
-                              }}
+                              onClick={() =>
+                                handleDeleteSubCategory(index, subIndex)
+                              }
                             >
                               <RxCrossCircled />
                             </Button>
@@ -168,20 +183,43 @@ function Service() {
                 <IoIosAddCircleOutline />
                 <span>Add Service</span>
               </Button>
-              <ul className="mt-4 space-y-3">
-                {services.map((srv, idx) => (
-                  <li key={idx} className="bg-gray-50 p-4 rounded-xl shadow-sm">
-                    <h3 className="font-semibold">{srv.name}</h3>
-                    <p className="text-sm">{srv.description}</p>
-                    <div className="flex flex-wrap gap-4 mt-2 text-sm">
-                      <span className="bg-emerald-900 text-white px-2 py-1 rounded">
-                        ${srv.price}
-                      </span>
-                      <span className="border px-2 py-1 rounded">
-                        {srv.hours}h {srv.minutes}m
-                      </span>
-                    </div>
-                  </li>
+              <ul className="mt-4 md:mt-8 space-y-3">
+                <h1 className="text-sm text-[#939393]">All Services</h1>
+                {services.map((s, i) => (
+                <div
+                key={i}
+                className="relative border border-gray-300 p-4 rounded-xl shadow md:shadow-md flex flex-col gap-2"
+              >
+                {/* Delete Icon at Top Right */}
+                <Button
+                  size="sm"
+                  variant="ghost"
+                  className="absolute top-2 right-2 hover:bg-transparent text-gray-400"
+                  onClick={() => handleDeleteService(i)}
+                >
+                  <RxCrossCircled />
+                </Button>
+              
+                <div>
+                  <h3 className="font-bold text-[#242424] font-mulish text-sm md:text-base">
+                    {s.name}
+                  </h3>
+                  <p className="text-sm text-[#939393] my-1">
+                    {s.category} / {s.subCategory}
+                  </p>
+                  <p className="text-xs text-[#939393] italic mb-2">{s.description}</p>
+              
+                  <div className="flex flex-wrap gap-3 mt-2">
+                    <span className="text-sm bg-primary text-white px-3 py-1 rounded-full">
+                      ${s.price}
+                    </span>
+                    <span className="text-sm border text-[#939393] border-gray-400 px-3 py-1 rounded-full">
+                      {s.hours}h {s.minutes}m
+                    </span>
+                  </div>
+                </div>
+              </div>
+              
                 ))}
               </ul>
             </div>
@@ -190,7 +228,7 @@ function Service() {
           <div className="flex justify-between w-full mt-10">
             <Button
               variant="outline"
-              className="text-[#939393] font-normal px-8 md:px-12 rounded-sm"
+              className="text-[#939393]  px-8 md:px-12 rounded-sm"
             >
               Back
             </Button>
@@ -203,19 +241,28 @@ function Service() {
         <div className="p-4 space-y-4">
           <Button
             variant="ghost"
-            className="flex items-center text-sm"
+            className="flex items-center font-bold"
             onClick={() => setShowServiceForm(false)}
           >
-            <ArrowLeft className="w-4 h-4 mr-1" /> Back
+            <ArrowLeft className="w-4 h-4 mr-1" /> Add Service
           </Button>
 
-          <div className="bg-white rounded-2xl p-4 shadow space-y-4">
+          <div className="bg-white rounded-2xl p-4 md:p-6 shadow space-y-4 md:space-y-6">
             <h2 className="font-semibold text-lg">Service Info</h2>
             <Input
               placeholder="Service Name"
+              className="bg-[#F8F8FE] shadow-none border-0 md:p-6"
               value={serviceForm.name}
               onChange={(e) =>
                 setServiceForm({ ...serviceForm, name: e.target.value })
+              }
+            />
+            <Input
+              placeholder="Description"
+              value={serviceForm.description}
+              className="bg-[#F8F8FE] shadow-none border-0 md:p-6"
+              onChange={(e) =>
+                setServiceForm({ ...serviceForm, description: e.target.value })
               }
             />
             <select
@@ -223,7 +270,7 @@ function Service() {
               onChange={(e) =>
                 setServiceForm({ ...serviceForm, category: e.target.value })
               }
-              className="w-full border rounded p-2"
+              className="w-full rounded p-2 md:p-4 bg-[#F8F8FE] shadow-none border-0"
             >
               <option value="">Select Category</option>
               {categories.map((cat, idx) => (
@@ -237,7 +284,7 @@ function Service() {
               onChange={(e) =>
                 setServiceForm({ ...serviceForm, subCategory: e.target.value })
               }
-              className="w-full border rounded p-2"
+              className="w-full rounded p-2 md:p-4 bg-[#F8F8FE] shadow-none border-0"
             >
               <option value="">Select Sub-category</option>
               {categories
@@ -250,10 +297,11 @@ function Service() {
             </select>
           </div>
 
-          <div className="bg-white rounded-2xl p-4 shadow space-y-4">
+          <div className="bg-white rounded-2xl p-4 md:p-6 shadow space-y-4 md:space-y-6">
             <h2 className="font-semibold text-lg">Price & Duration</h2>
             <Input
               placeholder="Enter Price ($)"
+              className="bg-[#F8F8FE] shadow-none border-0 md:p-6"
               type="number"
               value={serviceForm.price}
               onChange={(e) =>
@@ -263,6 +311,7 @@ function Service() {
             <div className="flex flex-col sm:flex-row gap-4">
               <Input
                 placeholder="Hours"
+                className="bg-[#F8F8FE] shadow-none border-0 md:p-6"
                 type="number"
                 value={serviceForm.hours}
                 onChange={(e) =>
@@ -271,6 +320,7 @@ function Service() {
               />
               <Input
                 placeholder="Minutes"
+                className="bg-[#F8F8FE] shadow-none border-0 md:p-6"
                 type="number"
                 value={serviceForm.minutes}
                 onChange={(e) =>
@@ -280,11 +330,15 @@ function Service() {
             </div>
           </div>
 
-          <div className="flex flex-col sm:flex-row justify-end gap-2">
-            <Button variant="outline" onClick={() => setShowServiceForm(false)}>
+          <div className="flex flex-col md:mt-8 sm:flex-row justify-center gap-2 md:gap-4">
+            <Button
+              className="text-[#939393]  px-8 md:px-12 rounded-sm"
+              variant="outline"
+              onClick={() => setShowServiceForm(false)}
+            >
               Cancel
             </Button>
-            <Button onClick={handleAddService}>Save</Button>
+            <Button className="bg-secondary hover:bg-amber-600 font-normal px-8 md:px-12 rounded-sm" onClick={handleAddService}>Save</Button>
           </div>
         </div>
       )}
