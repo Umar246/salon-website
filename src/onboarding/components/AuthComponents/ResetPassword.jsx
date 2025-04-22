@@ -49,7 +49,9 @@ export default function ResetPassword({ next, prev }) {
     if (error) {
       toast.error(error.message);
     } else {
-      toast.success("Password updated successfully");
+      toast.success("Password updated successfully", {
+        className: "bg-[#005248]]",
+      });
       setLoading(false);
       next();
     }

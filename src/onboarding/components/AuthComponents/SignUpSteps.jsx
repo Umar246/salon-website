@@ -80,7 +80,9 @@ const SignUpSteps = () => {
         setLoading(false);
       } else {
         // Sign up successful (pending email confirmation)
-        toast.success("User resgistered successfully");
+        toast.success("User resgistered successfully", {
+          className: "bg-[#005248]",
+        });
         setFormData({});
         setLoading(false);
         setStep(4);

@@ -25,7 +25,9 @@ export default function SignIn() {
     } else {
       console.log("data", data);
       console.log("sign in successfull");
-      toast.success("Sign in successfull");
+      toast.success("Sign in successfull", {
+        className: "bg-[#005248]",
+      });
       setLoading(false);
       navigate("/dashboard");
     }

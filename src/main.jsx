@@ -4,7 +4,8 @@ import "./index.css";
 import App from "./App.jsx";
 import { BrowserRouter } from "react-router-dom";
 import { Bounce, ToastContainer } from "react-toastify";
-import { AuthProvider } from "./context/AuthContext";
+import AuthProvider from "./context/AuthProvider";
+// import { AuthProvider } from "./context/";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
