@@ -9,6 +9,9 @@ import ClientContacts from "./StepComponents/ClientContacts";
 import Service from "./StepComponents/Service";
 import Staff from "./StepComponents/Staff";
 import Complete from "./StepComponents/Complete";
+import { supabase } from "@/config/supabaseClient";
+import useAuth from "@/context/useAuth";
+import { toast } from "react-toastify";
 
 // const steps = [
 //   {
@@ -33,9 +36,48 @@ import Complete from "./StepComponents/Complete";
 
 const StepperContainer = () => {
   const [currentStep, setCurrentStep] = useState(0);
+  const { session } = useAuth();
+  // console.log('session in stepper', session)
+  // Collect data from each step
+  const [profile, setProfile] = useState({
+    categories: [],
+    location: {},
+    hours: [],
+    workspace: [],
+    clients: [],
+    services: [],
+    staff: [],
+  });
 
   const nextStep = () => setCurrentStep((previous) => previous + 1);
   const prevStep = () => setCurrentStep((previous) => previous - 1);
+
+  // Called by each step via updateData(payload)
+  const updateData = (key) => (payload) => {
+    setProfile((prev) => ({ ...prev, [key]: payload }));
+  };
+
+  // Final submit: insert or upsert into Supabase
+  const complete = async () => {
+    const user = session?.user?.id;
+    if (!user)
+      return toast.error(
+        "User not found. Please make sure you confirmed your email"
+      );
+    const { error } = await supabase.from("onboarding_profiles").upsert(
+      {
+        user_id: user.id,
+        ...profile,
+      },
+      { onConflict: "user_id" }
+    );
+    if (error) {
+      console.error(error);
+      toast.error("Error saving onboarding data. Please try again.");
+    } else {
+      console.log("Onboarding saved");
+    }
+  };
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-12 gap-5 min-h-screen ">
@@ -66,6 +108,7 @@ const StepperContainer = () => {
             prev={prevStep}
             currentStep={currentStep}
             setCurrentStep={setCurrentStep}
+            updateData={updateData("categories")}
           />
         )}
         {currentStep === 1 && (
@@ -74,6 +117,7 @@ const StepperContainer = () => {
             prev={prevStep}
             currentStep={currentStep}
             setCurrentStep={setCurrentStep}
+            updateData={updateData("location")}
           />
         )}
         {currentStep === 2 && (
@@ -82,6 +126,7 @@ const StepperContainer = () => {
             prev={prevStep}
             currentStep={currentStep}
             setCurrentStep={setCurrentStep}
+            updateData={updateData("hours")}
           />
         )}
         {currentStep === 3 && (
@@ -90,6 +135,7 @@ const StepperContainer = () => {
             prev={prevStep}
             currentStep={currentStep}
             setCurrentStep={setCurrentStep}
+            updateData={updateData("workspace")}
           />
         )}
         {currentStep === 4 && (
@@ -98,6 +144,7 @@ const StepperContainer = () => {
             prev={prevStep}
             currentStep={currentStep}
             setCurrentStep={setCurrentStep}
+            updateData={updateData("clients")}
           />
         )}
         {currentStep === 5 && (
@@ -106,6 +153,7 @@ const StepperContainer = () => {
             prev={prevStep}
             currentStep={currentStep}
             setCurrentStep={setCurrentStep}
+            updateData={updateData("services")}
           />
         )}
         {currentStep === 6 && (
@@ -114,6 +162,7 @@ const StepperContainer = () => {
             prev={prevStep}
             currentStep={currentStep}
             setCurrentStep={setCurrentStep}
+            updateData={updateData("staff")}
           />
         )}
         {currentStep === 7 && (
@@ -122,6 +171,7 @@ const StepperContainer = () => {
             prev={prevStep}
             currentStep={currentStep}
             setCurrentStep={setCurrentStep}
+            complete={complete}
           />
         )}
       </div>

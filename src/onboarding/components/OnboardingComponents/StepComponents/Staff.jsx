@@ -9,8 +9,9 @@ import {
 } from "@/components/ui/dialog";
 import { RxCrossCircled } from "react-icons/rx";
 import { IoIosAddCircleOutline } from "react-icons/io";
+import PropTypes from "prop-types";
 
-export default function AddStaffStep() {
+export default function AddStaffStep({ next, prev, updateData }) {
   const [staffList, setStaffList] = useState([]);
   const [modalOpen, setModalOpen] = useState(false);
   const [staff, setStaff] = useState({
@@ -25,23 +26,23 @@ export default function AddStaffStep() {
   };
 
   const handleAddStaff = () => {
-    if (staff.firstName && staff.email && staff.phone) {
-      setStaffList([...staffList, staff]);
-      setStaff({
-        firstName: "",
-        lastName: "",
-        email: "",
-        phone: "",
-      });
-      setModalOpen(false);
-    } else {
+    if (!staff.firstName || !staff.email || !staff.phone) {
       alert("Please fill all required fields");
+      return;
     }
+    setStaffList((prev) => [...prev, staff]);
+    setStaff({ firstName: "", lastName: "", email: "", phone: "" });
+    setModalOpen(false);
   };
 
-  const handleDelete = (index) => {
-    const updatedList = staffList.filter((_, i) => i !== index);
-    setStaffList(updatedList);
+  const handleDelete = (i) => {
+    setStaffList((prev) => prev.filter((_, idx) => idx !== i));
+  };
+
+  const handleNext = () => {
+    console.log("staffList", staffList);
+    updateData(staffList);
+    next();
   };
 
   return (
@@ -137,15 +138,25 @@ export default function AddStaffStep() {
       </div>
       <div className="flex justify-between w-full mt-10">
         <Button
+          onClick={prev}
           variant="outline"
           className="text-[#939393]  px-8 md:px-12 rounded-sm"
         >
           Back
         </Button>
-        <Button className="bg-secondary hover:bg-amber-600 font-normal px-8 md:px-12 rounded-sm">
+        <Button
+          onClick={handleNext}
+          className="bg-secondary hover:bg-amber-600 font-normal px-8 md:px-12 rounded-sm"
+        >
           Next
         </Button>
       </div>
     </div>
   );
 }
+
+AddStaffStep.propTypes = {
+  next: PropTypes.func.isRequired,
+  prev: PropTypes.func.isRequired,
+  updateData: PropTypes.func.isRequired,
+};
