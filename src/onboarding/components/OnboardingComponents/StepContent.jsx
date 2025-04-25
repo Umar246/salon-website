@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 // import { Button } from "@/components/ui/button";
 import OnboardingSteps from "./OnboardingSteps";
 import BussinessCategory from "./StepComponents/BussinessCategory";
@@ -51,6 +51,10 @@ const StepperContainer = () => {
 
   const nextStep = () => setCurrentStep((previous) => previous + 1);
   const prevStep = () => setCurrentStep((previous) => previous - 1);
+
+  useEffect(() => {
+    console.log("profile", profile);
+  }, [nextStep]);
 
   // Called by each step via updateData(payload)
   const updateData = (key) => (payload) => {

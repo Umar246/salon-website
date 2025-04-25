@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Button } from "@/components/ui/button";
+import PropTypes from "prop-types";
 
 const categories = [
   "Atheistic Medicine",
@@ -13,7 +14,7 @@ const categories = [
   "Designer",
 ];
 
-export default function BussinessCategory() {
+export default function BussinessCategory({ next, updateData }) {
   const [selectedCategories, setSelectedCategories] = useState([]);
 
   const handleSelect = (category) => {
@@ -22,6 +23,11 @@ export default function BussinessCategory() {
         ? prev.filter((c) => c !== category)
         : [...prev, category]
     );
+  };
+
+  const handleNext = () => {
+    updateData(selectedCategories);
+    next();
   };
 
   return (
@@ -58,9 +64,26 @@ export default function BussinessCategory() {
 
       {/* Buttons */}
       <div className="flex justify-between w-full  mt-4">
-        <Button variant="outline" className="text-[#939393] animated-btn font-normal px-8 md:px-12 rounded-sm">Back</Button>
-        <Button className="bg-secondary animated-btn hover:bg-amber-600 font-normal px-8 md:px-12 rounded-sm">Next</Button>
+        <Button
+          disabled={true}
+          variant="outline"
+          className="text-[#939393] animated-btn font-normal px-8 md:px-12 rounded-sm"
+        >
+          Back
+        </Button>
+        <Button
+          onClick={handleNext}
+          className="bg-secondary animated-btn hover:bg-amber-600 font-normal px-8 md:px-12 rounded-sm"
+        >
+          Next
+        </Button>
       </div>
     </div>
   );
 }
+
+BussinessCategory.propTypes = {
+  next: PropTypes.func.isRequired,
+  prev: PropTypes.func.isRequired,
+  updateData: PropTypes.func.isRequired,
+};
