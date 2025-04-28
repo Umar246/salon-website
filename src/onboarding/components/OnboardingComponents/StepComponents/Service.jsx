@@ -6,7 +6,7 @@ import PropTypes from "prop-types";
 import { IoIosAddCircleOutline } from "react-icons/io";
 import { RxCrossCircled } from "react-icons/rx";
 
-function Service() {
+function Service({ next, prev, updateData }) {
   const [showServiceForm, setShowServiceForm] = useState(false);
   const [showCategorySidebar, setShowCategorySidebar] = useState(false);
   const [showSubCategorySidebar, setShowSubCategorySidebar] = useState(false);
@@ -71,6 +71,11 @@ function Service() {
       subCategory: "",
     });
     setShowServiceForm(false);
+  };
+
+  const handleNext = () => {
+    updateData(services);
+    next();
   };
 
   const Sidebar = ({ title, children, onClose }) => (
@@ -186,40 +191,41 @@ function Service() {
               <ul className="mt-4 md:mt-8 space-y-3">
                 <h1 className="text-sm text-[#939393]">All Services</h1>
                 {services.map((s, i) => (
-                <div
-                key={i}
-                className="relative border border-gray-300 p-4 rounded-xl shadow md:shadow-md flex flex-col gap-2"
-              >
-                {/* Delete Icon at Top Right */}
-                <Button
-                  size="sm"
-                  variant="ghost"
-                  className="absolute top-2 right-2 hover:bg-transparent text-gray-400"
-                  onClick={() => handleDeleteService(i)}
-                >
-                  <RxCrossCircled />
-                </Button>
-              
-                <div>
-                  <h3 className="font-bold text-[#242424] font-mulish text-sm md:text-base">
-                    {s.name}
-                  </h3>
-                  <p className="text-sm text-[#939393] my-1">
-                    {s.category} / {s.subCategory}
-                  </p>
-                  <p className="text-xs text-[#939393] italic mb-2">{s.description}</p>
-              
-                  <div className="flex flex-wrap gap-3 mt-2">
-                    <span className="text-sm bg-primary text-white px-3 py-1 rounded-full">
-                      ${s.price}
-                    </span>
-                    <span className="text-sm border text-[#939393] border-gray-400 px-3 py-1 rounded-full">
-                      {s.hours}h {s.minutes}m
-                    </span>
+                  <div
+                    key={i}
+                    className="relative border border-gray-300 p-4 rounded-xl shadow md:shadow-md flex flex-col gap-2"
+                  >
+                    {/* Delete Icon at Top Right */}
+                    <Button
+                      size="sm"
+                      variant="ghost"
+                      className="absolute top-2 right-2 hover:bg-transparent text-gray-400"
+                      onClick={() => handleDeleteService(i)}
+                    >
+                      <RxCrossCircled />
+                    </Button>
+
+                    <div>
+                      <h3 className="font-bold text-[#242424] font-mulish text-sm md:text-base">
+                        {s.name}
+                      </h3>
+                      <p className="text-sm text-[#939393] my-1">
+                        {s.category} / {s.subCategory}
+                      </p>
+                      <p className="text-xs text-[#939393] italic mb-2">
+                        {s.description}
+                      </p>
+
+                      <div className="flex flex-wrap gap-3 mt-2">
+                        <span className="text-sm bg-primary text-white px-3 py-1 rounded-full">
+                          ${s.price}
+                        </span>
+                        <span className="text-sm border text-[#939393] border-gray-400 px-3 py-1 rounded-full">
+                          {s.hours}h {s.minutes}m
+                        </span>
+                      </div>
+                    </div>
                   </div>
-                </div>
-              </div>
-              
                 ))}
               </ul>
             </div>
@@ -227,12 +233,16 @@ function Service() {
 
           <div className="flex justify-between w-full mt-10">
             <Button
+              onClick={prev}
               variant="outline"
               className="text-[#939393]  px-8 md:px-12 rounded-sm"
             >
               Back
             </Button>
-            <Button className="bg-secondary hover:bg-amber-600 font-normal px-8 md:px-12 rounded-sm">
+            <Button
+              onClick={handleNext}
+              className="bg-secondary hover:bg-amber-600 font-normal px-8 md:px-12 rounded-sm"
+            >
               Next
             </Button>
           </div>
@@ -338,7 +348,12 @@ function Service() {
             >
               Cancel
             </Button>
-            <Button className="bg-secondary hover:bg-amber-600 font-normal px-8 md:px-12 rounded-sm" onClick={handleAddService}>Save</Button>
+            <Button
+              className="bg-secondary hover:bg-amber-600 font-normal px-8 md:px-12 rounded-sm"
+              onClick={handleAddService}
+            >
+              Save
+            </Button>
           </div>
         </div>
       )}
@@ -423,3 +438,9 @@ function Service() {
 }
 
 export default Service;
+
+Service.propTypes = {
+  next: PropTypes.func.isRequired,
+  prev: PropTypes.func.isRequired,
+  updateData: PropTypes.func.isRequired,
+};

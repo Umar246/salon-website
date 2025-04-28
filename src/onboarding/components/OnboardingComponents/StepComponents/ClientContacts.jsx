@@ -3,8 +3,9 @@ import Papa from "papaparse";
 import { Button } from "@/components/ui/button";
 import { LuSquareArrowUp } from "react-icons/lu";
 import { RxCrossCircled } from "react-icons/rx";
+import PropTypes from "prop-types";
 
-export default function ClientContacts() {
+export default function ClientContacts({ next, prev, updateData }) {
   const fileInputRef = useRef(null);
   const [clients, setClients] = useState([]);
 
@@ -33,6 +34,12 @@ export default function ClientContacts() {
   const removeClient = (index) => {
     setClients(clients.filter((_, i) => i !== index));
   };
+
+  const handleNext = () => {
+    updateData(clients);
+    next();
+  };
+
   return (
     <div className="flex flex-col justify-between min-h-screen">
       <div className="h-full">
@@ -113,15 +120,25 @@ export default function ClientContacts() {
       {/* Navigation Buttons */}
       <div className="flex justify-between w-full mt-10">
         <Button
+          onClick={prev}
           variant="outline"
           className="text-[#939393] font-normal px-8 md:px-12 rounded-sm"
         >
           Back
         </Button>
-        <Button className="bg-secondary hover:bg-amber-600 font-normal px-8 md:px-12 rounded-sm">
+        <Button
+          onClick={handleNext}
+          className="bg-secondary hover:bg-amber-600 font-normal px-8 md:px-12 rounded-sm"
+        >
           Next
         </Button>
       </div>
     </div>
   );
 }
+
+ClientContacts.propTypes = {
+  next: PropTypes.func.isRequired,
+  prev: PropTypes.func.isRequired,
+  updateData: PropTypes.func.isRequired,
+};

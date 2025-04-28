@@ -4,8 +4,9 @@ import { RxCrossCircled } from "react-icons/rx";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import { Button } from "@/components/ui/button"; // Assuming shadcn/ui
 import { IoArrowBack } from "react-icons/io5";
+import PropTypes from "prop-types";
 
-export default function Workspace() {
+export default function Workspace({ next, prev, updateData }) {
   const [images, setImages] = useState([]);
   const [selectedIndex, setSelectedIndex] = useState(null);
   const [previewOpen, setPreviewOpen] = useState(false);
@@ -38,6 +39,11 @@ export default function Workspace() {
     }
   };
 
+  const handleNext = () => {
+    updateData(images);
+    next();
+  };
+
   return (
     <div className="flex flex-col justify-between min-h-screen">
       <div>
@@ -45,7 +51,7 @@ export default function Workspace() {
           <h2 className="text-base text-center w-full md:text-xl text-primary font-mulish font-bold">
             Upload Workplace Images
           </h2>
-          <button className="text-gray-400 underline hover:text-secondary text-sm">
+          <button   onClick={next} className="text-gray-400 underline hover:text-secondary text-sm">
             Skip
           </button>
         </div>
@@ -99,12 +105,16 @@ export default function Workspace() {
       {/* Navigation Buttons */}
       <div className="flex justify-between w-full mt-10">
         <Button
+          onClick={prev}
           variant="outline"
           className="text-[#939393] font-normal px-8 md:px-12 rounded-sm"
         >
           Back
         </Button>
-        <Button className="bg-secondary hover:bg-amber-600 font-normal px-8 md:px-12 rounded-sm">
+        <Button
+          onClick={handleNext}
+          className="bg-secondary hover:bg-amber-600 font-normal px-8 md:px-12 rounded-sm"
+        >
           Next
         </Button>
       </div>
@@ -169,3 +179,9 @@ export default function Workspace() {
     </div>
   );
 }
+
+Workspace.propTypes = {
+  next: PropTypes.func.isRequired,
+  prev: PropTypes.func.isRequired,
+  updateData: PropTypes.func.isRequired,
+};

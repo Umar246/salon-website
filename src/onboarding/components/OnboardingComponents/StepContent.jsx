@@ -64,22 +64,21 @@ const StepperContainer = () => {
   // Final submit: insert or upsert into Supabase
   const complete = async () => {
     const user = session?.user?.id;
+    console.log("user", user);
     if (!user)
       return toast.error(
         "User not found. Please make sure you confirmed your email"
       );
-    const { error } = await supabase.from("onboarding_profiles").upsert(
-      {
-        user_id: user.id,
-        ...profile,
-      },
-      { onConflict: "user_id" }
-    );
+    const { data, error } = await supabase.from("onboarding_profiles").insert({
+      user_id: user,
+      ...profile,
+    });
     if (error) {
-      console.error(error);
+      console.error("ERROR WHILE SAVING DATA: ", error);
       toast.error("Error saving onboarding data. Please try again.");
     } else {
-      console.log("Onboarding saved");
+      toast.success("Onboarding data saved successfully!");
+      console.log("Onboarding saved", data);
     }
   };
 
