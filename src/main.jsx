@@ -18,9 +18,15 @@ createRoot(document.getElementById("root")).render(
           pauseOnFocusLoss
           draggable
           pauseOnHover
-          theme="colored"
           transition={Bounce}
+          // toastClassName={(toastProps) =>
+          //   toastProps.type === "success"
+          //     ? "my-custom-success-toast"
+          //     : "my-default-toast"
+          // }
+          bodyClassName="font-mulish"
         />
+
         <App />
       </AuthProvider>
     </BrowserRouter>

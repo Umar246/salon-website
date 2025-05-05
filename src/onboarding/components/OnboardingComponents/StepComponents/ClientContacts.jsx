@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { LuSquareArrowUp } from "react-icons/lu";
 import { RxCrossCircled } from "react-icons/rx";
 import PropTypes from "prop-types";
+import { toast } from "react-toastify";
 
 export default function ClientContacts({ next, prev, updateData }) {
   const fileInputRef = useRef(null);
@@ -35,7 +36,10 @@ export default function ClientContacts({ next, prev, updateData }) {
     setClients(clients.filter((_, i) => i !== index));
   };
 
+  const isValid = () => clients.length > 0;
+
   const handleNext = () => {
+    if (!isValid()) return toast.error("Import at least one contact");
     updateData(clients);
     next();
   };
@@ -127,6 +131,7 @@ export default function ClientContacts({ next, prev, updateData }) {
           Back
         </Button>
         <Button
+          disabled={!isValid()}
           onClick={handleNext}
           className="bg-secondary hover:bg-amber-600 font-normal px-8 md:px-12 rounded-sm"
         >

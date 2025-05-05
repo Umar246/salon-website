@@ -9,33 +9,47 @@
 @tailwind utilities;
 
 @layer base {
-    body {
-      @apply font-sans;
-    }
+  body {
+    @apply font-sans;
   }
+}
+
+/* in your global CSS (e.g. index.css) */
+.Toastify__toast--success {
+  background: #005248 !important; /* your new bg color */
+  color: #ffffff !important; /* your new text color */
+}
+
+/* Success toasts ki progress bar */
+.Toastify__toast--success .Toastify__progress-bar {
+  background: #f69705 !important; /* custom green */
+  opacity: 100% !important; /* custom green */
+}
+
+.Toastify__toast--success .Toastify__toast-icon svg {
+  fill: #f69705 !important; /* change the icon’s color */
+}
 
 @theme {
-    --color-primary: #005248;   /* Aapka primary color */
-    --color-secondary: #F69705; /* Aapka secondary color */
-    --color-neutral: #FFFFFF;
-    --color-info: #EFF8F7;
-    --color-success: #F8F8FE;
-  }
+  --color-primary: #005248; /* Aapka primary color */
+  --color-secondary: #f69705; /* Aapka secondary color */
+  --color-neutral: #ffffff;
+  --color-info: #eff8f7;
+  --color-success: #f8f8fe;
+}
 
 :root {
-
-    --radius: 0.6rem;
+  --radius: 0.6rem;
 }
 
 @theme inline {
+  --radius-sm: calc(var(--radius) - 4px);
 
-    --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
 
-    --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
 
-    --radius-lg: var(--radius);
-
-    --radius-xl: calc(var(--radius) + 4px);
+  --radius-xl: calc(var(--radius) + 4px);
 }
 
 .font-playfair {
@@ -70,4 +84,3 @@ body {
 main {
   flex: 1 0 auto;
 }
-

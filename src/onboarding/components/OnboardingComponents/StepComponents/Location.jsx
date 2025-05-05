@@ -5,10 +5,11 @@ import { Button } from "@/components/ui/button";
 import { IoArrowBack } from "react-icons/io5";
 import { Input } from "@/components/ui/input";
 import PropTypes from "prop-types";
+import { toast } from "react-toastify";
 
 const libraries = ["places"];
 
-function Location({ next, updateData }) {
+function Location({ next, prev, updateData }) {
   const [map, setMap] = useState(null);
   const [autocomplete, setAutocomplete] = useState(null);
   const [coords, setCoords] = useState({ lat: 37.7749, lng: -122.4194 });
@@ -32,8 +33,14 @@ function Location({ next, updateData }) {
     }
   };
 
+  const mapValid = !manualMode && address.trim() !== "";
+  const manualValid = manualMode && address && street && city && zipCode;
+  const isValid = mapValid || manualValid;
+
   // When “Save” clicked in map mode
   const handleSaveMap = () => {
+    if (!isValid) return toast.error("Please fill data carefully");
+
     updateData({
       mode: "map",
       coords,
@@ -44,6 +51,8 @@ function Location({ next, updateData }) {
 
   // When “Save” clicked in manual mode
   const handleSaveManual = () => {
+    if (!isValid) return toast.error("Please fill data carefully");
+
     updateData({
       mode: "manual",
       address,
@@ -105,7 +114,7 @@ function Location({ next, updateData }) {
                   }}
                   zoom={18}
                   center={coords}
-                  onLoad={(map)=>setMap(map)}
+                  onLoad={(map) => setMap(map)}
                 />
               </div>
             </LoadScript>
@@ -117,12 +126,22 @@ function Location({ next, updateData }) {
               + Add Manually
             </button>
           </div>
-          <Button
-            onClick={handleSaveMap}
-            className="bg-secondary animated-btn hover:bg-amber-600 font-normal px-8 md:px-12 rounded-sm"
-          >
-            Save
-          </Button>
+          <div className="flex justify-between w-full  mt-4">
+            <Button
+              onClick={prev}
+              variant="outline"
+              className="text-[#939393] animated-btn font-normal px-8 md:px-12 rounded-sm"
+            >
+              Back
+            </Button>
+            <Button
+              disabled={!isValid}
+              onClick={handleSaveMap}
+              className="bg-secondary animated-btn hover:bg-amber-600 font-normal px-8 md:px-12 rounded-sm"
+            >
+              Save
+            </Button>
+          </div>
         </div>
       ) : (
         <div className="flex flex-col items-center justify-between min-h-screen lg:px-8">
@@ -216,6 +235,7 @@ function Location({ next, updateData }) {
             </div>
           </div>
           <Button
+            disabled={!isValid}
             onClick={handleSaveManual}
             className="bg-secondary animated-btn hover:bg-amber-600 font-normal px-8 md:px-12 rounded-sm"
           >

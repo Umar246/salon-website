@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import { useState } from "react";
 import { IoIosAddCircleOutline } from "react-icons/io";
 import { RxCrossCircled } from "react-icons/rx";
+import { toast } from "react-toastify";
 
 const daysOfWeek = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
@@ -41,7 +42,13 @@ export default function BusinessHours({ next, prev, updateData }) {
     setHours(copy);
   };
 
+  const isValid = () =>
+    hours.some((h) => h.enabled) &&
+    hours.every((h) => !h.enabled || (h.startTime && h.endTime));
+
   const handleNext = () => {
+    if (!isValid())
+      return toast.error("Select at least one open day with times");
     updateData(hours);
     next();
   };
@@ -186,6 +193,7 @@ export default function BusinessHours({ next, prev, updateData }) {
           Back
         </Button>
         <Button
+          disabled={!isValid()}
           onClick={handleNext}
           className="bg-secondary hover:bg-amber-600 font-normal px-8 md:px-12 rounded-sm"
         >

@@ -36,7 +36,7 @@ const steps = [
   },
 ];
 
-const OnboardingSteps = ({ currentStep, setCurrentStep }) => {
+const OnboardingSteps = ({ currentStep }) => {
   return (
     <div className="md:col-span-4 lg:col-span-3 p-6 
      rounded-xl md:rounded-3xl flex flex-col  bg-neutral min-h-screen">
@@ -48,7 +48,7 @@ const OnboardingSteps = ({ currentStep, setCurrentStep }) => {
           <div key={step.step} className="flex gap-4 items-start">
             <div className="flex flex-col items-center justify-center">
               <button
-                onClick={() => setCurrentStep(index)}
+                // onClick={() => setCurrentStep(index)}
                 className={`rounded-full p-2 flex items-center justify-center w-10 h-10 ${
                   isCompleted
                     ? "bg-primary text-white"
@@ -105,7 +105,7 @@ const OnboardingSteps = ({ currentStep, setCurrentStep }) => {
 
 OnboardingSteps.propTypes = {
   currentStep: PropTypes.number.isRequired,
-  setCurrentStep: PropTypes.func.isRequired,
+  // setCurrentStep: PropTypes.func.isRequired,
 };
 
 export default OnboardingSteps;

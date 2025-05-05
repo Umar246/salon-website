@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Button } from "@/components/ui/button";
 import PropTypes from "prop-types";
+import { toast } from "react-toastify";
 
 const categories = [
   "Atheistic Medicine",
@@ -25,7 +26,9 @@ export default function BussinessCategory({ next, updateData }) {
     );
   };
 
+  const isValid = selectedCategories.length > 0;
   const handleNext = () => {
+    if (!isValid) return toast.error("Please select at least one category.");
     updateData(selectedCategories);
     next();
   };
@@ -72,6 +75,7 @@ export default function BussinessCategory({ next, updateData }) {
           Back
         </Button>
         <Button
+          disabled={!isValid}
           onClick={handleNext}
           className="bg-secondary animated-btn hover:bg-amber-600 font-normal px-8 md:px-12 rounded-sm"
         >

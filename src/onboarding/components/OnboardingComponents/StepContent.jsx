@@ -12,6 +12,7 @@ import Complete from "./StepComponents/Complete";
 import { supabase } from "@/config/supabaseClient";
 import useAuth from "@/context/useAuth";
 import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 // const steps = [
 //   {
@@ -37,6 +38,7 @@ import { toast } from "react-toastify";
 const StepperContainer = () => {
   const [currentStep, setCurrentStep] = useState(0);
   const { session } = useAuth();
+  const navigate = useNavigate();
   // console.log('session in stepper', session)
   // Collect data from each step
   const [profile, setProfile] = useState({
@@ -64,21 +66,28 @@ const StepperContainer = () => {
   // Final submit: insert or upsert into Supabase
   const complete = async () => {
     const user = session?.user?.id;
-    console.log("user", user);
-    if (!user)
+    if (!user) {
       return toast.error(
         "User not found. Please make sure you confirmed your email"
       );
-    const { data, error } = await supabase.from("onboarding_profiles").insert({
-      user_id: user,
-      ...profile,
-    });
+    }
+
+    const {  error } = await supabase
+      .from("onboarding_profiles")
+      .insert({ user_id: user, ...profile });
+
     if (error) {
       console.error("ERROR WHILE SAVING DATA: ", error);
       toast.error("Error saving onboarding data. Please try again.");
     } else {
-      toast.success("Onboarding data saved successfully!");
-      console.log("Onboarding saved", data);
+      toast.success("Onboarding data saved successfully!", {
+        // wait for the toast to auto‐close (default 5s), then redirect
+        onClose: () => {
+          navigate("/dashboard");
+        },
+        // optionally override autoClose to something shorter:
+        autoClose: 3000,
+      });
     }
   };
 

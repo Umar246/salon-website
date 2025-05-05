@@ -5,6 +5,7 @@ import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import { Button } from "@/components/ui/button"; // Assuming shadcn/ui
 import { IoArrowBack } from "react-icons/io5";
 import PropTypes from "prop-types";
+import { toast } from "react-toastify";
 
 export default function Workspace({ next, prev, updateData }) {
   const [images, setImages] = useState([]);
@@ -39,7 +40,10 @@ export default function Workspace({ next, prev, updateData }) {
     }
   };
 
+  const isValid = () => images.length > 0;
+
   const handleNext = () => {
+    if (!isValid()) return toast.error("Upload at least one image");
     updateData(images);
     next();
   };
@@ -51,7 +55,10 @@ export default function Workspace({ next, prev, updateData }) {
           <h2 className="text-base text-center w-full md:text-xl text-primary font-mulish font-bold">
             Upload Workplace Images
           </h2>
-          <button   onClick={next} className="text-gray-400 underline hover:text-secondary text-sm">
+          <button
+            onClick={next}
+            className="text-gray-400 underline hover:text-secondary text-sm"
+          >
             Skip
           </button>
         </div>
@@ -112,6 +119,7 @@ export default function Workspace({ next, prev, updateData }) {
           Back
         </Button>
         <Button
+          disabled={!isValid()}
           onClick={handleNext}
           className="bg-secondary hover:bg-amber-600 font-normal px-8 md:px-12 rounded-sm"
         >

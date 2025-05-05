@@ -10,6 +10,7 @@ import {
 import { RxCrossCircled } from "react-icons/rx";
 import { IoIosAddCircleOutline } from "react-icons/io";
 import PropTypes from "prop-types";
+import { toast } from "react-toastify";
 
 export default function AddStaffStep({ next, prev, updateData }) {
   const [staffList, setStaffList] = useState([]);
@@ -25,7 +26,8 @@ export default function AddStaffStep({ next, prev, updateData }) {
     setStaff({ ...staff, [e.target.name]: e.target.value });
   };
 
-  const handleAddStaff = () => {
+  const handleAddStaff = (e) => {
+    e.preventDefault();
     if (!staff.firstName || !staff.email || !staff.phone) {
       alert("Please fill all required fields");
       return;
@@ -39,8 +41,10 @@ export default function AddStaffStep({ next, prev, updateData }) {
     setStaffList((prev) => prev.filter((_, idx) => idx !== i));
   };
 
+  const isValid = () => staffList.length > 0;
+
   const handleNext = () => {
-    console.log("staffList", staffList);
+    if (!isValid()) return toast.error("Add at least one staff member");
     updateData(staffList);
     next();
   };
@@ -87,52 +91,58 @@ export default function AddStaffStep({ next, prev, updateData }) {
               <DialogTitle>Add Staff Member</DialogTitle>
             </DialogHeader>
 
-            <div className="space-y-4 md:space-y-6 mt-2">
-              <Input
-                name="firstName"
-                className=" bg-[#F8F8FE] shadow-none border-0 h-10 md:h-12 focus:!ring-1 focus:!ring-secondary"
-                placeholder="First Name"
-                value={staff.firstName}
-                onChange={handleChange}
-              />
-              <Input
-                name="lastName"
-                className=" bg-[#F8F8FE] shadow-none border-0 h-10 md:h-12 focus:!ring-1 focus:!ring-secondary"
-                placeholder="Last Name"
-                value={staff.lastName}
-                onChange={handleChange}
-              />
-              <Input
-                name="email"
-                className=" bg-[#F8F8FE] shadow-none border-0 h-10 md:h-12 focus:!ring-1 focus:!ring-secondary"
-                placeholder="Email"
-                value={staff.email}
-                onChange={handleChange}
-              />
-              <Input
-                name="phone"
-                className=" bg-[#F8F8FE] shadow-none border-0 h-10 md:h-12 focus:!ring-1 focus:!ring-secondary"
-                placeholder="Phone Number"
-                value={staff.phone}
-                onChange={handleChange}
-              />
-            </div>
+            <form onSubmit={handleAddStaff}>
+              <div className="space-y-4 md:space-y-6 mt-2">
+                <Input
+                  name="firstName"
+                  className=" bg-[#F8F8FE] shadow-none border-0 h-10 md:h-12 focus:!ring-1 focus:!ring-secondary"
+                  placeholder="First Name"
+                  value={staff.firstName}
+                  onChange={handleChange}
+                  required="true"
+                />
+                <Input
+                  name="lastName"
+                  className=" bg-[#F8F8FE] shadow-none border-0 h-10 md:h-12 focus:!ring-1 focus:!ring-secondary"
+                  placeholder="Last Name"
+                  value={staff.lastName}
+                  onChange={handleChange}
+                  required="true"
+                />
+                <Input
+                  name="email"
+                  className=" bg-[#F8F8FE] shadow-none border-0 h-10 md:h-12 focus:!ring-1 focus:!ring-secondary"
+                  placeholder="Email"
+                  value={staff.email}
+                  onChange={handleChange}
+                  required="true"
+                />
+                <Input
+                  name="phone"
+                  className=" bg-[#F8F8FE] shadow-none border-0 h-10 md:h-12 focus:!ring-1 focus:!ring-secondary"
+                  placeholder="Phone Number"
+                  value={staff.phone}
+                  onChange={handleChange}
+                  required="true"
+                />
+              </div>
 
-            <div className="flex justify-end gap-3 mt-6">
-              <Button
-                className="text-[#939393] rounded-sm px-8 md:px-12"
-                variant="outline"
-                onClick={() => setModalOpen(false)}
-              >
-                Cancel
-              </Button>
-              <Button
-                className="bg-secondary hover:bg-amber-600 rounded-sm px-8 md:px-12"
-                onClick={handleAddStaff}
-              >
-                Add
-              </Button>
-            </div>
+              <div className="flex justify-end gap-3 mt-6">
+                <Button
+                  className="text-[#939393] rounded-sm px-8 md:px-12"
+                  variant="outline"
+                  onClick={() => setModalOpen(false)}
+                >
+                  Cancel
+                </Button>
+                <Button
+                  className="bg-secondary hover:bg-amber-600 rounded-sm px-8 md:px-12"
+                  type="submit"
+                >
+                  Add
+                </Button>
+              </div>
+            </form>
           </DialogContent>
         </Dialog>
       </div>
@@ -145,6 +155,7 @@ export default function AddStaffStep({ next, prev, updateData }) {
           Back
         </Button>
         <Button
+          disabled={!isValid()}
           onClick={handleNext}
           className="bg-secondary hover:bg-amber-600 font-normal px-8 md:px-12 rounded-sm"
         >

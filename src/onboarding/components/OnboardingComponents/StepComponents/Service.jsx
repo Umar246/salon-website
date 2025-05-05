@@ -5,6 +5,7 @@ import { ArrowLeft, X } from "lucide-react";
 import PropTypes from "prop-types";
 import { IoIosAddCircleOutline } from "react-icons/io";
 import { RxCrossCircled } from "react-icons/rx";
+import { toast } from "react-toastify";
 
 function Service({ next, prev, updateData }) {
   const [showServiceForm, setShowServiceForm] = useState(false);
@@ -73,7 +74,10 @@ function Service({ next, prev, updateData }) {
     setShowServiceForm(false);
   };
 
+  const isValid = () => services.length > 0;
+
   const handleNext = () => {
+    if (!isValid()) return toast.error("Add at least one service");
     updateData(services);
     next();
   };
@@ -240,6 +244,7 @@ function Service({ next, prev, updateData }) {
               Back
             </Button>
             <Button
+              disabled={!isValid()}
               onClick={handleNext}
               className="bg-secondary hover:bg-amber-600 font-normal px-8 md:px-12 rounded-sm"
             >
@@ -256,105 +261,119 @@ function Service({ next, prev, updateData }) {
           >
             <ArrowLeft className="w-4 h-4 mr-1" /> Add Service
           </Button>
-
-          <div className="bg-white rounded-2xl p-4 md:p-6 shadow space-y-4 md:space-y-6">
-            <h2 className="font-semibold text-lg">Service Info</h2>
-            <Input
-              placeholder="Service Name"
-              className="bg-[#F8F8FE] shadow-none border-0 md:p-6"
-              value={serviceForm.name}
-              onChange={(e) =>
-                setServiceForm({ ...serviceForm, name: e.target.value })
-              }
-            />
-            <Input
-              placeholder="Description"
-              value={serviceForm.description}
-              className="bg-[#F8F8FE] shadow-none border-0 md:p-6"
-              onChange={(e) =>
-                setServiceForm({ ...serviceForm, description: e.target.value })
-              }
-            />
-            <select
-              value={serviceForm.category}
-              onChange={(e) =>
-                setServiceForm({ ...serviceForm, category: e.target.value })
-              }
-              className="w-full rounded p-2 md:p-4 bg-[#F8F8FE] shadow-none border-0"
-            >
-              <option value="">Select Category</option>
-              {categories.map((cat, idx) => (
-                <option key={idx} value={cat.name}>
-                  {cat.name}
-                </option>
-              ))}
-            </select>
-            <select
-              value={serviceForm.subCategory}
-              onChange={(e) =>
-                setServiceForm({ ...serviceForm, subCategory: e.target.value })
-              }
-              className="w-full rounded p-2 md:p-4 bg-[#F8F8FE] shadow-none border-0"
-            >
-              <option value="">Select Sub-category</option>
-              {categories
-                .find((c) => c.name === serviceForm.category)
-                ?.subCategories.map((sub, idx) => (
-                  <option key={idx} value={sub}>
-                    {sub}
+          <form onSubmit={handleAddService}>
+            <div className="bg-white rounded-2xl p-4 md:p-6 shadow space-y-4 md:space-y-6">
+              <h2 className="font-semibold text-lg">Service Info</h2>
+              <Input
+                placeholder="Service Name"
+                required="true"
+                className="bg-[#F8F8FE] shadow-none border-0 md:p-6"
+                value={serviceForm.name}
+                onChange={(e) =>
+                  setServiceForm({ ...serviceForm, name: e.target.value })
+                }
+              />
+              <Input
+                placeholder="Description"
+                required="true"
+                value={serviceForm.description}
+                className="bg-[#F8F8FE] shadow-none border-0 md:p-6"
+                onChange={(e) =>
+                  setServiceForm({
+                    ...serviceForm,
+                    description: e.target.value,
+                  })
+                }
+              />
+              <select
+                value={serviceForm.category}
+                required="true"
+                onChange={(e) =>
+                  setServiceForm({ ...serviceForm, category: e.target.value })
+                }
+                className="w-full rounded p-2 md:p-4 bg-[#F8F8FE] shadow-none border-0"
+              >
+                <option value="">Select Category</option>
+                {categories.map((cat, idx) => (
+                  <option key={idx} value={cat.name}>
+                    {cat.name}
                   </option>
                 ))}
-            </select>
-          </div>
-
-          <div className="bg-white rounded-2xl p-4 md:p-6 shadow space-y-4 md:space-y-6">
-            <h2 className="font-semibold text-lg">Price & Duration</h2>
-            <Input
-              placeholder="Enter Price ($)"
-              className="bg-[#F8F8FE] shadow-none border-0 md:p-6"
-              type="number"
-              value={serviceForm.price}
-              onChange={(e) =>
-                setServiceForm({ ...serviceForm, price: e.target.value })
-              }
-            />
-            <div className="flex flex-col sm:flex-row gap-4">
-              <Input
-                placeholder="Hours"
-                className="bg-[#F8F8FE] shadow-none border-0 md:p-6"
-                type="number"
-                value={serviceForm.hours}
+              </select>
+              <select
+                required="true"
+                value={serviceForm.subCategory}
                 onChange={(e) =>
-                  setServiceForm({ ...serviceForm, hours: e.target.value })
+                  setServiceForm({
+                    ...serviceForm,
+                    subCategory: e.target.value,
+                  })
                 }
-              />
-              <Input
-                placeholder="Minutes"
-                className="bg-[#F8F8FE] shadow-none border-0 md:p-6"
-                type="number"
-                value={serviceForm.minutes}
-                onChange={(e) =>
-                  setServiceForm({ ...serviceForm, minutes: e.target.value })
-                }
-              />
+                className="w-full rounded p-2 md:p-4 bg-[#F8F8FE] shadow-none border-0"
+              >
+                <option value="">Select Sub-category</option>
+                {categories
+                  .find((c) => c.name === serviceForm.category)
+                  ?.subCategories.map((sub, idx) => (
+                    <option key={idx} value={sub}>
+                      {sub}
+                    </option>
+                  ))}
+              </select>
             </div>
-          </div>
 
-          <div className="flex flex-col md:mt-8 sm:flex-row justify-center gap-2 md:gap-4">
-            <Button
-              className="text-[#939393]  px-8 md:px-12 rounded-sm"
-              variant="outline"
-              onClick={() => setShowServiceForm(false)}
-            >
-              Cancel
-            </Button>
-            <Button
-              className="bg-secondary hover:bg-amber-600 font-normal px-8 md:px-12 rounded-sm"
-              onClick={handleAddService}
-            >
-              Save
-            </Button>
-          </div>
+            <div className="bg-white rounded-2xl p-4 md:p-6 shadow space-y-4 md:space-y-6">
+              <h2 className="font-semibold text-lg">Price & Duration</h2>
+              <Input
+                placeholder="Enter Price ($)"
+                required="true"
+                className="bg-[#F8F8FE] shadow-none border-0 md:p-6"
+                type="number"
+                value={serviceForm.price}
+                onChange={(e) =>
+                  setServiceForm({ ...serviceForm, price: e.target.value })
+                }
+              />
+              <div className="flex flex-col sm:flex-row gap-4">
+                <Input
+                  placeholder="Hours"
+                  required="true"
+                  className="bg-[#F8F8FE] shadow-none border-0 md:p-6"
+                  type="number"
+                  value={serviceForm.hours}
+                  onChange={(e) =>
+                    setServiceForm({ ...serviceForm, hours: e.target.value })
+                  }
+                />
+                <Input
+                  placeholder="Minutes"
+                  required="true"
+                  className="bg-[#F8F8FE] shadow-none border-0 md:p-6"
+                  type="number"
+                  value={serviceForm.minutes}
+                  onChange={(e) =>
+                    setServiceForm({ ...serviceForm, minutes: e.target.value })
+                  }
+                />
+              </div>
+            </div>
+
+            <div className="flex flex-col md:mt-8 sm:flex-row justify-center gap-2 md:gap-4">
+              <Button
+                className="text-[#939393]  px-8 md:px-12 rounded-sm"
+                variant="outline"
+                onClick={() => setShowServiceForm(false)}
+              >
+                Cancel
+              </Button>
+              <Button
+                type="submit"
+                className="bg-secondary hover:bg-amber-600 font-normal px-8 md:px-12 rounded-sm"
+              >
+                Save
+              </Button>
+            </div>
+          </form>
         </div>
       )}
 
