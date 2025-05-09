@@ -5,7 +5,7 @@ export default function OnboardingRoutes() {
   return (
     <div>
       <Routes>
-        <Route path="/" element={<AdminDashboard/>} />
+        <Route path="/*" element={<AdminDashboard/>} />
       </Routes>
     </div>
   );

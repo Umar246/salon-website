@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Link, Outlet, Route, Routes, useLocation } from "react-router-dom";
 
@@ -14,14 +13,10 @@ import {
 } from "react-icons/fa";
 
 // shadcn/ui Sheet components (copy them from https://ui.shadcn.com/docs/components/sheet)
-import {
-  SheetContent,
-  SheetHeader,
-  SheetTitle,
-  SheetDescription,
-  SheetClose,
-  Sheet,
-} from "@/components/ui/sheet";
+import { SheetContent, Sheet } from "@/components/ui/sheet";
+import Users from "./DashboardComponents/Users";
+import Clients from "./DashboardComponents/Clients";
+import Subscriptions from "./DashboardComponents/Subscriptions";
 
 // Example pages
 // import AdminDashboard from "./AdminDashboard";
@@ -36,63 +31,91 @@ function AdminLayout() {
 
   // Define your menu items here
   const menuItems = [
-    { text: "Dashboard", icon: <FaTachometerAlt />, path: "/admin/" },
-    { text: "Products", icon: <FaShoppingCart />, path: "/admin/products" },
-    { text: "Customers", icon: <FaUsers />, path: "/admin/customers" },
-    { text: "Orders", icon: <FaList />, path: "/admin/orders" },
+    { text: "Users", icon: <FaTachometerAlt />, path: "/dashboard/" },
+    { text: "Clients", icon: <FaShoppingCart />, path: "/dashboard/clients" },
     {
-      text: "Add Product",
+      text: "Subscriptions",
+      icon: <FaUsers />,
+      path: "/dashboard/subscription",
+    },
+    {
+      text: "Purchased Services",
+      icon: <FaList />,
+      path: "/dashboard/purchase-services",
+    },
+    {
+      text: "Roles",
       icon: <FaPlusSquare />,
-      path: "/admin/products/create",
+      path: "/dashboard/roles",
+    },
+    {
+      text: "Settings",
+      icon: <FaPlusSquare />,
+      path: "/dashboard/settings",
+    },
+    {
+      text: "User Reports",
+      icon: <FaPlusSquare />,
+      path: "/dashboard/user-reports",
+    },
+    {
+      text: "Categories",
+      icon: <FaPlusSquare />,
+      path: "/dashboard/categories",
     },
   ];
 
   const handleToggleSidebar = () => setIsOpen(!isOpen);
 
   return (
-    <div className="flex flex-col md:flex-row h-screen">
+    <div className="flex flex-col md:flex-row h-screen font-mulish">
       {/* ===== Desktop Sidebar ===== */}
-      <aside className="hidden md:flex flex-col w-16 bg-primary text-white">
+      <aside className="hidden md:flex flex-col w-54 bg-primary text-white">
         {/* Scrollable area for menu */}
         <div className="flex-1 overflow-y-auto">
           <nav className="flex flex-col items-center">
-        <div>
-            <img src="/logo.png" alt="Logo" className="w-16 py-5 px-2" />
-        </div>
-            {menuItems.map((item) => {
-              const isActive = location.pathname === item.path;
-              return (
-                <Link
-                  key={item.text}
-                  to={item.path}
-                  className={`flex items-center justify-center w-full py-3 hover:bg-[#2ba9db] ${
-                    isActive ? "bg-[#2ba9db]" : ""
-                  }`}
-                >
-                  <span className="mr-2">{item.icon}</span>
-                  {/* {item.text} */}
-                </Link>
-              );
-            })}
+            <div>
+              <img src="/logo.png" alt="Logo" className="w-26 pt-3 pb-7 px-2" />
+            </div>
+            <div className="flex flex-col w-full">
+              {menuItems.map((item) => {
+                const isActive = location.pathname === item.path;
+                return (
+                  <Link
+                    key={item.text}
+                    to={item.path}
+                    className={`flex w-full py-3 ps-4 font-light hover:bg-[#242424] opacity-[90%] ${
+                      isActive ? "bg-[#242424] opacity-[90%]" : ""
+                    }`}
+                  >
+                    <span className="mr-2 flex items-center gap-3">
+                      {item.icon}
+                      {item.text}
+                    </span>
+                    {/* {item.text} */}
+                  </Link>
+                );
+              })}
+            </div>
           </nav>
         </div>
 
         {/* Account link at the bottom */}
-        <div className="flex flex-col items-center">
+        {/* <div className="flex flex-col items-center">
           <Link
             to="/admin/account"
-            className={`flex items-center justify-center w-full py-3 hover:bg-[#2ba9db] ${
+            className={`flex items-center w-full py-3 hover:bg-[#2ba9db] ${
               location.pathname === "/admin/account" ? "bg-[#2ba9db]" : ""
             }`}
           >
             <FaUserCircle className="mr-2" />
-            {/* Account */}
+            Account
           </Link>
-        </div>
+        </div> */}
       </aside>
 
       {/* ===== Mobile Top Bar (shown on small screens) ===== */}
-      <header className="md:hidden flex items-center bg-[#01518C] text-white w-full p-4">
+      <header className="md:hidden flex items-center bg-primary text-white w-full p-4">
         <button onClick={handleToggleSidebar}>
           <FaBars size={24} />
         </button>
@@ -101,12 +124,13 @@ function AdminLayout() {
 
       {/* ===== Mobile Sidebar via shadcn/ui Sheet ===== */}
       <Sheet open={isOpen} onOpenChange={setIsOpen}>
-        <SheetContent side="left" className="p-0 bg-[#01518C] text-white">
-          <SheetHeader className="p-4 border-b border-white">
-            <SheetTitle>Admin Panel</SheetTitle>
-            <SheetDescription>Navigation</SheetDescription>
-            <SheetClose className="absolute right-4 top-4" />
-          </SheetHeader>
+        <SheetContent
+          side="left"
+          className="p-0 bg-primary text-white border-0"
+        >
+          <div className="text-center w-full">
+            <img src="/logo.png" alt="Logo" className="w-26 py-3 px-2" />
+          </div>
 
           <div className="flex flex-col h-full">
             {/* Menu items */}
@@ -118,8 +142,8 @@ function AdminLayout() {
                     key={item.text}
                     to={item.path}
                     onClick={() => setIsOpen(false)}
-                    className={`flex items-center px-4 py-3 hover:bg-[#2ba9db] ${
-                      isActive ? "bg-[#2ba9db]" : ""
+                    className={`flex items-center px-4 py-3 hover:bg-[#242424] opacity-[90%] ${
+                      isActive ? "bg-[#242424] opacity-[90%]" : ""
                     }`}
                   >
                     <span className="mr-2">{item.icon}</span>
@@ -147,13 +171,15 @@ function AdminLayout() {
       </Sheet>
 
       {/* ===== Main Content Area ===== */}
-      <main className="flex-1 flex flex-col bg-[#edeee9] p-4 overflow-y-auto">
+      <main className="flex-1 flex flex-col bg-info p-4 overflow-y-auto">
         {/* Renders the nested route content (from react-router-dom) */}
         <Outlet />
 
         {/* Define your routes here if you want them in the same file */}
         <Routes>
-          <Route path="/" element={<div>Home of onboarding</div>} />
+          <Route path="/" element={<Users />} />
+          <Route path="/clients" element={<Clients />} />
+          <Route path="/subscription" element={<Subscriptions/>} />
           {/* <Route path="/products" element={<Products />} />
           <Route path="/orders" element={<Orders />} />
           <Route path="/customers" element={<Customers />} />
