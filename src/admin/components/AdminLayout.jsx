@@ -17,6 +17,7 @@ import { SheetContent, Sheet } from "@/components/ui/sheet";
 import Users from "./DashboardComponents/Users";
 import Clients from "./DashboardComponents/Clients";
 import Subscriptions from "./DashboardComponents/Subscriptions";
+import DashboardNavbar from "./DashboardNavbar";
 
 // Example pages
 // import AdminDashboard from "./AdminDashboard";
@@ -171,15 +172,16 @@ function AdminLayout() {
       </Sheet>
 
       {/* ===== Main Content Area ===== */}
-      <main className="flex-1 flex flex-col bg-info p-4 overflow-y-auto">
+      <main className="flex-1 flex flex-col bg-info  overflow-y-auto">
         {/* Renders the nested route content (from react-router-dom) */}
         <Outlet />
 
         {/* Define your routes here if you want them in the same file */}
+        <DashboardNavbar />
         <Routes>
           <Route path="/" element={<Users />} />
           <Route path="/clients" element={<Clients />} />
-          <Route path="/subscription" element={<Subscriptions/>} />
+          <Route path="/subscription" element={<Subscriptions />} />
           {/* <Route path="/products" element={<Products />} />
           <Route path="/orders" element={<Orders />} />
           <Route path="/customers" element={<Customers />} />
