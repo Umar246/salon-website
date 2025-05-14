@@ -18,6 +18,7 @@ import Users from "./DashboardComponents/Users";
 import Clients from "./DashboardComponents/Clients";
 import Subscriptions from "./DashboardComponents/Subscriptions";
 import DashboardNavbar from "./DashboardNavbar";
+import UserProfilePage from "./DashboardComponents/UserProfilePage";
 
 // Example pages
 // import AdminDashboard from "./AdminDashboard";
@@ -180,6 +181,7 @@ function AdminLayout() {
         <DashboardNavbar />
         <Routes>
           <Route path="/" element={<Users />} />
+          <Route path="/:userId" element={<UserProfilePage />} />
           <Route path="/clients" element={<Clients />} />
           <Route path="/subscription" element={<Subscriptions />} />
           {/* <Route path="/products" element={<Products />} />
