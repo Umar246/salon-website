@@ -14,11 +14,11 @@ import {
 
 // shadcn/ui Sheet components (copy them from https://ui.shadcn.com/docs/components/sheet)
 import { SheetContent, Sheet } from "@/components/ui/sheet";
-import Users from "./DashboardComponents/Users";
 import Clients from "./DashboardComponents/Clients";
 import Subscriptions from "./DashboardComponents/Subscriptions";
 import DashboardNavbar from "./DashboardNavbar";
 import UserProfilePage from "./DashboardComponents/UserProfilePage";
+import BusinessInfo from "./DashboardComponents/BusinessInfo";
 
 // Example pages
 // import AdminDashboard from "./AdminDashboard";
@@ -33,38 +33,38 @@ function AdminLayout() {
 
   // Define your menu items here
   const menuItems = [
-    { text: "Users", icon: <FaTachometerAlt />, path: "/dashboard/" },
+    { text: "Business Info", icon: <FaTachometerAlt />, path: "/dashboard/" },
     { text: "Clients", icon: <FaShoppingCart />, path: "/dashboard/clients" },
     {
-      text: "Subscriptions",
+      text: "Services",
       icon: <FaUsers />,
       path: "/dashboard/subscription",
     },
     {
-      text: "Purchased Services",
+      text: "Staff",
       icon: <FaList />,
       path: "/dashboard/purchase-services",
     },
     {
-      text: "Roles",
+      text: "Appointments",
       icon: <FaPlusSquare />,
       path: "/dashboard/roles",
     },
-    {
-      text: "Settings",
-      icon: <FaPlusSquare />,
-      path: "/dashboard/settings",
-    },
-    {
-      text: "User Reports",
-      icon: <FaPlusSquare />,
-      path: "/dashboard/user-reports",
-    },
-    {
-      text: "Categories",
-      icon: <FaPlusSquare />,
-      path: "/dashboard/categories",
-    },
+    // {
+    //   text: "Settings",
+    //   icon: <FaPlusSquare />,
+    //   path: "/dashboard/settings",
+    // },
+    // {
+    //   text: "User Reports",
+    //   icon: <FaPlusSquare />,
+    //   path: "/dashboard/user-reports",
+    // },
+    // {
+    //   text: "Categories",
+    //   icon: <FaPlusSquare />,
+    //   path: "/dashboard/categories",
+    // },
   ];
 
   const handleToggleSidebar = () => setIsOpen(!isOpen);
@@ -180,7 +180,7 @@ function AdminLayout() {
         {/* Define your routes here if you want them in the same file */}
         <DashboardNavbar />
         <Routes>
-          <Route path="/" element={<Users />} />
+          <Route path="/" element={<BusinessInfo />} />
           <Route path="/:userId" element={<UserProfilePage />} />
           <Route path="/clients" element={<Clients />} />
           <Route path="/subscription" element={<Subscriptions />} />
