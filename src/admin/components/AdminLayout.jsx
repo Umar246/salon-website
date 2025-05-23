@@ -1,24 +1,33 @@
 import { useState } from "react";
-import { Link, Outlet, Route, Routes, useLocation } from "react-router-dom";
+import {
+  Link,
+  Outlet,
+  Route,
+  Routes,
+  useLocation,
+  useNavigate,
+} from "react-router-dom";
 
 // React Icons (choose whichever icons you prefer)
-import {
-  FaBars,
-  FaTachometerAlt,
-  FaShoppingCart,
-  FaUsers,
-  FaUserCircle,
-  FaList,
-  FaPlusSquare,
-} from "react-icons/fa";
+import { FaBars, FaRegCalendarCheck } from "react-icons/fa";
 
 // shadcn/ui Sheet components (copy them from https://ui.shadcn.com/docs/components/sheet)
 import { SheetContent, Sheet } from "@/components/ui/sheet";
 import Clients from "./DashboardComponents/Clients";
-import Subscriptions from "./DashboardComponents/Subscriptions";
+// import Subscriptions from "./DashboardComponents/Subscriptions";
 import DashboardNavbar from "./DashboardNavbar";
-import UserProfilePage from "./DashboardComponents/UserProfilePage";
+// import UserProfilePage from "./DashboardComponents/UserProfilePage";
 import BusinessInfo from "./DashboardComponents/BusinessInfo";
+import Services from "./DashboardComponents/Services";
+import Staff from "./DashboardComponents/Staff";
+import Appointments from "./DashboardComponents/Appointments";
+import { HiUsers } from "react-icons/hi2";
+import { MdBusinessCenter, MdPeopleOutline } from "react-icons/md";
+import { BsScissors } from "react-icons/bs";
+import { FiLogOut } from "react-icons/fi";
+import { Button } from "@/components/ui/button";
+import { supabase } from "@/config/supabaseClient";
+import { toast } from "react-toastify";
 
 // Example pages
 // import AdminDashboard from "./AdminDashboard";
@@ -29,26 +38,27 @@ import BusinessInfo from "./DashboardComponents/BusinessInfo";
 
 function AdminLayout() {
   const [isOpen, setIsOpen] = useState(false);
+  const navigate = useNavigate();
   const location = useLocation();
 
   // Define your menu items here
   const menuItems = [
-    { text: "Business Info", icon: <FaTachometerAlt />, path: "/dashboard/" },
-    { text: "Clients", icon: <FaShoppingCart />, path: "/dashboard/clients" },
+    { text: "Business Info", icon: <MdBusinessCenter />, path: "/dashboard/" },
+    { text: "Clients", icon: <HiUsers />, path: "/dashboard/clients" },
     {
       text: "Services",
-      icon: <FaUsers />,
-      path: "/dashboard/subscription",
+      icon: <BsScissors />,
+      path: "/dashboard/services",
     },
     {
       text: "Staff",
-      icon: <FaList />,
-      path: "/dashboard/purchase-services",
+      icon: <MdPeopleOutline />,
+      path: "/dashboard/staff",
     },
     {
       text: "Appointments",
-      icon: <FaPlusSquare />,
-      path: "/dashboard/roles",
+      icon: <FaRegCalendarCheck />,
+      path: "/dashboard/appointments",
     },
     // {
     //   text: "Settings",
@@ -68,6 +78,18 @@ function AdminLayout() {
   ];
 
   const handleToggleSidebar = () => setIsOpen(!isOpen);
+
+  const handleLogout = async () => {
+    const { error } = await supabase.auth.signOut();
+    if (error) {
+      console.error("Logout error:", error.message);
+    } else {
+      console.log("Logged out successfully");
+      // Redirect to login page or show a success message
+      navigate("/auth");
+      toast.success("Logged out successfully");
+    }
+  };
 
   return (
     <div className="flex flex-col md:flex-row h-screen font-mulish">
@@ -103,17 +125,15 @@ function AdminLayout() {
         </div>
 
         {/* Account link at the bottom */}
-        {/* <div className="flex flex-col items-center">
-          <Link
-            to="/admin/account"
-            className={`flex items-center w-full py-3 hover:bg-[#2ba9db] ${
-              location.pathname === "/admin/account" ? "bg-[#2ba9db]" : ""
-            }`}
+        <div className="flex flex-col w-full">
+          <Button
+            onClick={handleLogout}
+            className={`flex items-center w-full py-5 ps-4 font-light bg-red-700 hover:bg-red-800 rounded-none  opacity-[90%] `}
           >
-            <FaUserCircle className="mr-2" />
-            Account
-          </Link>
-        </div> */}
+            <FiLogOut className="mr-2" />
+            Logout
+          </Button>
+        </div>
       </aside>
 
       {/* ===== Mobile Top Bar (shown on small screens) ===== */}
@@ -157,16 +177,13 @@ function AdminLayout() {
 
             {/* Account link */}
             <div>
-              <Link
-                to="/admin/account"
-                onClick={() => setIsOpen(false)}
-                className={`flex items-center px-4 py-3 hover:bg-[#2ba9db] ${
-                  location.pathname === "/admin/account" ? "bg-[#2ba9db]" : ""
-                }`}
+              <Button
+                onClick={handleLogout}
+                className={`flex items-center w-full py-5 ps-4 font-light bg-red-700 hover:bg-red-800 rounded-none  opacity-[90%] `}
               >
-                <FaUserCircle className="mr-2" />
-                Account
-              </Link>
+                <FiLogOut className="mr-2" />
+                Logout
+              </Button>
             </div>
           </div>
         </SheetContent>
@@ -181,13 +198,10 @@ function AdminLayout() {
         <DashboardNavbar />
         <Routes>
           <Route path="/" element={<BusinessInfo />} />
-          <Route path="/:userId" element={<UserProfilePage />} />
           <Route path="/clients" element={<Clients />} />
-          <Route path="/subscription" element={<Subscriptions />} />
-          {/* <Route path="/products" element={<Products />} />
-          <Route path="/orders" element={<Orders />} />
-          <Route path="/customers" element={<Customers />} />
-          <Route path="/products/create" element={<AddProduct />} /> */}
+          <Route path="/services" element={<Services />} />
+          <Route path="/staff" element={<Staff />} />
+          <Route path="/appointments" element={<Appointments />} />
         </Routes>
       </main>
     </div>

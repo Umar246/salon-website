@@ -20,13 +20,13 @@ export default function BussinessInfoEdit({
   onSave,
 }) {
   return (
-    <Dialog open={isOpen} onOpenChange={onClose}>
+    <Dialog open={isOpen} onOpenChange={onClose} className="font-mulish">
       <DialogContent className="sm:max-w-[500px]">
         <DialogHeader>
           <DialogTitle>{title}</DialogTitle>
         </DialogHeader>
 
-        <div className="space-y-4">
+        <div className="space-y-4 font-mulish">
           {Object.entries(formData).map(([key, value]) => (
             <Input
               key={key}

@@ -1,39 +1,36 @@
 // src/hooks/useFullUserList.js
 import { supabase } from "@/config/supabaseClient";
 import useAuth from "@/context/useAuth";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 
-export function useBussinessProfile() {
+export function useBusinessProfile() {
   const { session } = useAuth();
   const userId = session?.user?.id;
-  console.log("userId", userId);
 
-  const [userProfile, setUserProfile] = useState([]);
-  console.log("userProfile", userProfile);
+  const [profile, setProfile] = useState(null);
   const [loadingProfile, setLoadingProfile] = useState(true);
   const [error, setError] = useState(null);
 
-  useEffect(() => {
-    if (!userId) return; // Agar user logged-in nahi to exit
-
+  const fetchProfile = useCallback(async () => {
+    if (!userId) return;
     setLoadingProfile(true);
-
-    // Query onboarding_profiles, joining in the auth.users row
-    supabase
+    const { data, error } = await supabase
       .from("onboarding_profiles")
-      .select(`*`)
+      .select("*")
       .eq("user_id", userId)
-      .then(({ data, error }) => {
-        if (error) {
-          console.error("Error fetching users + profiles:", error);
-          setError(error);
-          return;
-        }
+      .single();
 
-        setUserProfile(data);
-      })
-      .finally(() => setLoadingProfile(false));
-  }, []);
+    if (error) {
+      setError(error);
+    } else {
+      setProfile(data);
+    }
+    setLoadingProfile(false);
+  }, [userId]);
 
-  return { userProfile, loadingProfile, error };
+  useEffect(() => {
+    fetchProfile();
+  }, [fetchProfile]);
+
+  return { profile, loadingProfile, error, refetchProfile: fetchProfile };
 }

@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { RiMenu2Fill, RiMenu3Fill } from "react-icons/ri";
 import { FiUser } from "react-icons/fi";
 import useAuth from "@/context/useAuth";
-import { supabase } from "@/config/supabaseClient";
+// import { supabase } from "@/config/supabaseClient";
 
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -13,14 +13,14 @@ const Navbar = () => {
   console.log("session in navbar", session);
 
 
-  const handleLogout = async () => {
-    const { error } = await supabase.auth.signOut();
-    if (error) {
-      console.error("Logout error:", error.message);
-    } else {
-      console.log("Logged out successfully");
-    }
-  };
+  // const handleLogout = async () => {
+  //   const { error } = await supabase.auth.signOut();
+  //   if (error) {
+  //     console.error("Logout error:", error.message);
+  //   } else {
+  //     console.log("Logged out successfully");
+  //   }
+  // };
   
 
   return (
@@ -86,12 +86,12 @@ const Navbar = () => {
                 >
                   Dashboard
                 </Link>
-                <button
+                {/* <button
                   onClick={handleLogout}
                   className="animated-btn outline-2 outline-red-700 hover:bg-red-700 text-white font-light px-5 py-1.5 rounded-md"
                 >
                   Logout
-                </button>
+                </button> */}
               </>
             ) : (
               <>
@@ -180,12 +180,12 @@ const Navbar = () => {
                 >
                   Dashboard
                 </Link>
-                <button
+                {/* <button
                   onClick={handleLogout}
                   className="outline outline-red-700 hover:bg-red-700 text-white animated-btn px-3 py-2 rounded-md text-center"
                 >
                   Logout
-                </button>
+                </button> */}
               </>
             ) : (
               <>

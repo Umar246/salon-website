@@ -3,19 +3,21 @@ import { supabase } from "@/config/supabaseClient";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Edit2 } from "lucide-react";
-import { useBussinessProfile } from "@/admin/hooks/useBussinessProfile";
+// import { useBussinessProfile } from "@/admin/hooks/useBussinessProfile";
 import BussinessInfoEditModal from "./BussinessInfoEditModal";
+import { useBusinessProfile } from "@/admin/hooks/useBussinessProfile";
 
 export default function BusinessInfo() {
-  const { userProfile, loadingProfile, error } = useBussinessProfile();
+  const { profile, loadingProfile, error } = useBusinessProfile();
+  console.log('profile', profile)
   const [isEditOpen, setIsEditOpen] = useState(false);
   const [editSection, setEditSection] = useState(""); // categories / location / hours
   const [formData, setFormData] = useState({});
   const [currentProfile, setCurrentProfile] = useState(null);
 
   useEffect(() => {
-    if (userProfile?.[0]) setCurrentProfile(userProfile[0]);
-  }, [userProfile]);
+    if (profile) setCurrentProfile(profile);
+  }, [profile]);
 
   if (loadingProfile) return <p>Loading business info…</p>;
   if (error) return <p className="text-red-600">Error: {error.message}</p>;
@@ -73,7 +75,7 @@ export default function BusinessInfo() {
   };
 
   return (
-    <div className="space-y-6 p-3 md:p-6">
+    <div className="space-y-6 p-3 md:p-6 font-mulish">
       <h2 className="text-3xl font-bold">Business Info</h2>
 
       {/* Edit Modal */}
