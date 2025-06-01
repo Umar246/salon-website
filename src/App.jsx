@@ -15,9 +15,9 @@ function App() {
         <Route
           path="/onboarding/*"
           element={
-            <PrivateRoute>
+            // <PrivateRoute>
               <OnboardingRoutes />
-            </PrivateRoute>
+            // </PrivateRoute>
           }
         />
 
@@ -25,7 +25,7 @@ function App() {
           path="/dashboard/*"
           element={
             <PrivateRoute>
-              <AdminRoutes />
+              <AdminRoutes /> 
             </PrivateRoute>
           }
         />

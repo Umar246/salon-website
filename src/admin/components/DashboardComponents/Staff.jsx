@@ -1,5 +1,5 @@
 // src/components/Staff.jsx
-import  { useState } from "react";
+import { useState } from "react";
 // import { useBusinessProfile } from "@/admin/hooks/useBusinessProfile";
 import { supabase } from "@/config/supabaseClient";
 import {
@@ -38,12 +38,20 @@ export default function Staff() {
     email: "",
     phone: "",
     role: "",
-    status: "available",  // default
+    status: "available", // default
   });
 
   const openForm = (idx = null) => {
     if (idx !== null) {
-      setForm(staffList[idx]);
+      const staff = staffList[idx];
+      setForm({
+        firstName: staff.firstName || "",
+        lastName: staff.lastName || "",
+        email: staff.email || "",
+        phone: staff.phone || "",
+        role: staff.role || "",
+        status: staff.status || "available", // <-- Fix here
+      });
       setEditingIdx(idx);
     } else {
       setForm({
@@ -58,6 +66,7 @@ export default function Staff() {
     }
     setOpenModal(true);
   };
+
   const closeForm = () => {
     setOpenModal(false);
     setEditingIdx(null);

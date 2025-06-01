@@ -8,7 +8,7 @@ import BussinessInfoEditModal from "./BussinessInfoEditModal";
 import { useBusinessProfile } from "@/admin/hooks/useBussinessProfile";
 
 export default function BusinessInfo() {
-  const { profile, loadingProfile, error } = useBusinessProfile();
+  const { profile, loadingProfile, error, refetchProfile } = useBusinessProfile();
   console.log('profile', profile)
   const [isEditOpen, setIsEditOpen] = useState(false);
   const [editSection, setEditSection] = useState(""); // categories / location / hours
@@ -70,6 +70,7 @@ export default function BusinessInfo() {
       console.error("Update failed", error);
     } else {
       setIsEditOpen(false);
+       await refetchProfile();
       location.reload(); // Or better: re-fetch userProfile
     }
   };

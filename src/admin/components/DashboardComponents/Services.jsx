@@ -150,7 +150,7 @@ export default function Services() {
                 <TableHead>Name</TableHead>
                 <TableHead>Category</TableHead>
                 <TableHead>Sub-Category</TableHead>
-                <TableHead>Description</TableHead>
+                {/* <TableHead>Description</TableHead> */}
                 <TableHead>Price</TableHead>
                 <TableHead>Duration</TableHead>
                 <TableHead className="text-right">Actions</TableHead>
@@ -162,7 +162,7 @@ export default function Services() {
                   <TableCell>{svc.name}</TableCell>
                   <TableCell>{svc.category}</TableCell>
                   <TableCell>{svc.subCategory}</TableCell>
-                  <TableCell>{svc.description}</TableCell>
+                  {/* <TableCell>{svc.description}</TableCell> */}
                   <TableCell>${svc.price}</TableCell>
                   <TableCell>
                     {svc.hours}h {svc.minutes}m

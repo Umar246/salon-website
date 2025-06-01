@@ -43,23 +43,26 @@ function AdminLayout() {
 
   // Define your menu items here
   const menuItems = [
-    { text: "Business Info", icon: <MdBusinessCenter />, path: "/dashboard/" },
-    { text: "Clients", icon: <HiUsers />, path: "/dashboard/clients" },
+    {
+      text: "Appointments",
+      icon: <FaRegCalendarCheck />,
+      path: "/dashboard/",
+    },
     {
       text: "Services",
       icon: <BsScissors />,
       path: "/dashboard/services",
     },
-    {
+    { text: "Clients", icon: <HiUsers />, path: "/dashboard/clients" },
+     {
       text: "Staff",
       icon: <MdPeopleOutline />,
       path: "/dashboard/staff",
     },
-    {
-      text: "Appointments",
-      icon: <FaRegCalendarCheck />,
-      path: "/dashboard/appointments",
-    },
+    { text: "Business Info", icon: <MdBusinessCenter />, path: "/dashboard/business-info" },
+
+   
+
     // {
     //   text: "Settings",
     //   icon: <FaPlusSquare />,
@@ -197,11 +200,11 @@ function AdminLayout() {
         {/* Define your routes here if you want them in the same file */}
         <DashboardNavbar />
         <Routes>
-          <Route path="/" element={<BusinessInfo />} />
+          <Route path="/business-info" element={<BusinessInfo />} />
           <Route path="/clients" element={<Clients />} />
           <Route path="/services" element={<Services />} />
           <Route path="/staff" element={<Staff />} />
-          <Route path="/appointments" element={<Appointments />} />
+          <Route path="/" element={<Appointments />} />
         </Routes>
       </main>
     </div>

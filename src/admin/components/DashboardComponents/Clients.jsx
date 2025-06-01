@@ -117,7 +117,7 @@ export default function Clients() {
       {/* Clients Grid */}
       {/* Clients Grid */}
       {clients.length > 0 && (
-        <div className="p-4 md:p-6">
+        <Card className="p-4 md:p-6">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
             {clients.map((c, idx) => (
               <Card
@@ -133,7 +133,7 @@ export default function Clients() {
                   <h3 className="font-medium text-lg">{c.name}</h3>
                   <p className="text-sm text-gray-600">{c.email}</p>
                 </div>
-                <div className="flex space-x-2">
+                <div className="flex h-full items-center space-x-2">
                   <Button
                     size="sm"
                     variant="outline"
@@ -153,7 +153,7 @@ export default function Clients() {
               </Card>
             ))}
           </div>
-        </div>
+        </Card>
       )}
 
       {/* Add/Edit Modal */}

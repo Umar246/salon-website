@@ -20,6 +20,8 @@ export default function AddStaffStep({ next, prev, updateData }) {
     lastName: "",
     email: "",
     phone: "",
+    status: "available", // default value
+    role: "",
   });
 
   const handleChange = (e) => {
@@ -78,7 +80,7 @@ export default function AddStaffStep({ next, prev, updateData }) {
               <RxCrossCircled />
             </Button>
             <p className="font-medium text-[#242424]">
-              {s.firstName} {s.lastName}
+              {s.firstName} {s.lastName} - {s.role}
             </p>
             <p className="text-sm text-secondary">{s.email}</p>
             <p className="text-sm text-gray-500">{s.phone}</p>
@@ -124,6 +126,23 @@ export default function AddStaffStep({ next, prev, updateData }) {
                   value={staff.phone}
                   onChange={handleChange}
                   required="true"
+                />
+                <select
+                  name="status"
+                  value={staff.status}
+                  onChange={handleChange}
+                  className="w-full bg-[#F8F8FE] h-10 md:h-12 rounded-md px-3 text-gray-700 focus:!ring-1 focus:!ring-secondary"
+                >
+                  <option value="available">Available</option>
+                  <option value="unavailable">Unavailable</option>
+                </select>
+
+                <Input
+                  name="role"
+                  className=" bg-[#F8F8FE] shadow-none border-0 h-10 md:h-12 focus:!ring-1 focus:!ring-secondary"
+                  placeholder="Role (e.g. Barber, Receptionist)"
+                  value={staff.role}
+                  onChange={handleChange}
                 />
               </div>
 

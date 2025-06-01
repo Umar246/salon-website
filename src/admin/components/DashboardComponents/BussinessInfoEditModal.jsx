@@ -43,7 +43,7 @@ export default function BussinessInfoEdit({
           <Button variant="outline" onClick={onClose}>
             Cancel
           </Button>
-          <Button onClick={onSave}>Save</Button>
+          <Button className={"bg-secondary hover:bg-amber-600"} onClick={onSave}>Save</Button>
         </DialogFooter>
       </DialogContent>
     </Dialog>
