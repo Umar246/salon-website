@@ -52,7 +52,7 @@ const SignUpSteps = () => {
         email: formData.email,
         password: formData.password,
         options: {
-          emailRedirectTo: "http://localhost:5173/onboarding",
+          emailRedirectTo: "https://salon-management-liard.vercel.app/onboarding",
           data: {
             email: formData.email,
             business_name: formData.businessName,
